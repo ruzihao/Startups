@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <title>Startups and VCs</title>
+</head>
+<body>
+    <h1><a href="/companies/" style="text-decoration:none;">Startups and VCs</a></h1>
+    <hr />
+    <div class="DataSources" style="text-align:left; width:800; height:600;"> 
+    <h2>Data Sources</h2>
+    <ul>
+        <li><a href="http://www.crunchbase.com/">Crunchbase</a></li>
+        <li><a href="http://www.spokeintel.com/">Spoke</a> (previously VentureBeat Profiles)</li>
+        <li><a href="https://wrds-web.wharton.upenn.edu/wrds/">WRDS</a></li>
+        <li><a href="https://www.sec.gov/edgar/searchedgar/cik.htm">EDGAR</a></li>
+        <ul>
+        <li>Central Index Key (CIK) lookup</li>
+        <li>Company filing history</li>
+        Example: <a href="https://www.sec.gov/cgi-bin/browse-edgar?company=international+business+machine&owner=exclude&action=getcompany">IBM</a>
+        </ul>
+    <li> <a href="http://biz.yahoo.com/ipo/comp_a.html">Yahoo!IPOs</a></li>
+    </ul>
+</div>
+    <hr />
+    <div class="DataSources" style="text-align:left; width:800; height:600;"> 
+    <h2>Search</h2>
+    <form action="/companies/detail/" method="get" accept-charset="utf-8">
+        Company:<input type="text" name="company" id="" value="" />
+        <input type="submit" name="submit" id="" value="Search" />
+    </form>
+
+    {% if list_companies == True %}
+        <h3>Are you looking for ...</h3>
+        <ul>
+        {% for item in list_name %}
+            <li>{{ item }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+
+<hr />
+    <div class="DataSources" style="text-align:left; width:800; height:600;"> 
+<h2>Analysis</h2>
+    <b><a href="/companies/analysis/" style="text-decoration:none;">Report</a></b>
+</div>
+</body>
+</html>
