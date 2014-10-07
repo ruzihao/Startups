@@ -1,0 +1,49 @@
+/* GLOBAL STYLES
+-------------------------------------------------- */
+/* Padding below the footer and lighter body text */
+
+body {
+  font-family: "Source Sans Pro",sans-serif;
+  padding-bottom: 40px;
+  color: #5a5a5a;
+}
+
+.container.marketing {
+	text-align: center;
+}
+
+.container.marketing div{
+	margin-top: 5em;
+}
+
+footer {
+	color: #999;
+	text-align: center;
+}
+
+/* STYLES in company page
+-------------------------------------------------- */
+#completion {
+	margin-top: 2em;
+}
+#completion a{
+	text-decoration: none;
+	color:#999;
+	font-size: 4em;
+}
+#completion a:hover {
+	color:black;
+}
+#completionLabel {
+	font-size:12px;
+	color:#999;
+}
+
+@media (max-width: 990px) {
+	.jumbotron {
+		text-align: center
+	}
+	img {
+		margin: 0 auto;
+	}
+}
