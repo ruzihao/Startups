@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
@@ -23,7 +22,7 @@ SECRET_KEY = 'vqh)a3yj(5(o=t)9!a&235u1#e0ns^u($3s&4g!9@n7kk7c)7y'
 DEBUG = True
 
 TEMPLATE_DEBUG = True
-TEMPLATE_DIRS = {r'F:\Dropbox\Documents\Projects\QuantIn\Startups\Startups\templates'}
+TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates').replace('\\', '/'),)
 
 ALLOWED_HOSTS = []
 
@@ -88,5 +87,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-# STATIC_URL = '/static/'
-STATIC_URL = '/templates/profiles/'
+STATIC_URL = '/static/'
+# STATIC_URL = '/Startups/static/profiles/'
+# STATIC_ROOT = os.path.join(os.path.dirname(__file__), STATIC_URL)
+# STATIC_ROOT = ''
+# STATIC_URL = '/templates/profiles/'
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'templates/profiles/'),)
+# STATICFILES_DIRS = ('F:/Dropbox/Documents/Projects/QuantIn/Startups/Startups/Startups/statics/',)
+# STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, 'Startups/' + STATIC_URL).replace('\\', '/'),
+#                     os.path.join(PROJECT_ROOT, 'Startups/' + STATIC_URL + '/profiles').replace('\\', '/'),)
+
+# STATICFILES_FINDERS = (
+#     'django.contrib.staticfiles.finders.FileSystemFinder',
+#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+# )
