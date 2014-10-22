@@ -21,7 +21,8 @@ def detail_view(request):
             p = get_object_or_404(CbCompanies, company_name=company_name)
             i = get_list_or_404(CbInvestments, company_name=company_name)
             r = get_list_or_404(CbRounds, company_name=company_name)
-            response = HttpResponse(render(request, r'companies/detail.html', {'p': p, 'i': i, 'r': r}))
+            # response = HttpResponse(render(request, r'companies/detail.html', {'p': p, 'i': i, 'r': r}))
+            response = HttpResponse(render(request, r'profiles/', {'p': p}))
     else:
         context = {'name': ""}
         response = HttpResponse(render(request, r'companies/detail.html', context))

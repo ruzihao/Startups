@@ -60,7 +60,8 @@ WSGI_APPLICATION = 'Startups.wsgi.application'
 DATABASES = {
     'default': {
 		'ENGINE': 'django.db.backends.mysql',
-		'NAME': 'companies',
+		# 'NAME': 'companies',
+        'NAME': 'spokeintel',
 		'USER': 'root',
 		'PASSWORD': '976269',
 		'HOST': '127.0.0.1',
