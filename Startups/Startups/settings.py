@@ -37,7 +37,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 	'companies',
-    'profiles'
+    'profiles',
+    'lockdown',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -47,7 +48,10 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'lockdown.middleware.LockdownMiddleware',
 )
+
+LOCKDOWN_PASSWORDS = ('letmein',)
 
 ROOT_URLCONF = 'Startups.urls'
 
