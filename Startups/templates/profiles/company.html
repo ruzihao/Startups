@@ -24,6 +24,8 @@
     <!-- Custom styles for this template -->
     <link href="{% static 'css/carousel.css' %}" rel="stylesheet">
     <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+    <!-- js libs for graph -->
+    <script src="{% static 'js/libs/modernizr-2.0.6.min.js' %}"></script>
   </head>
 
   <body>
@@ -46,11 +48,9 @@
             <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
             <li><a href="#"><span class="glyphicon glyphicon-user"></span> Login</a></li>
           </ul>
-          <form post=role="form" class="navbar-form navbar-right">
-            <input type="text" name="company" class="form-control" placeholder="Search...">
-            <a href="test" class="btn btn-info"><span class="glyphicon glyphicon-search"></span> Search</a>
-            <!-- <input type="submit" class="btn btn-info" value=" Search"> -->
-            <!-- action='test/' method='get'  -->
+          <form role="form" class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+            <a href="#" class="btn btn-info"><span class="glyphicon glyphicon-search"></span> Search</a>
           </form> 
         </div>
       </div>
@@ -62,8 +62,7 @@
       <div class="jumbotron" style="margin-top:6em">
         <div class="row">
           <div class="col-md-2"> <!-- Company logo here -->
-            <!-- <img class="img-responsive" src="{% static 'img/company_img_1.png' %}" alt="Company logo"> -->
-            <img class="img-responsive" src="{% static 'img/company_img_1.png' %}" alt="Company logo">
+              <img class="img-responsive" src="{% static 'img/company_img_1.png' %}" alt="Company logo">
           </div>
           <div class="col-md-6">
             <h1>99 Designs</h1> <!-- Tao: Company name here -->
@@ -190,6 +189,48 @@
       </div> <!-- end of main content -->
 
       <hr class="featurette-divider">
+      <!-- Graph
+      ================================================== -->  
+      <h2>Networks Visulization</h2>
+      <p>We use different size, color, of nodes and the edge between nodes to visulize information</p>     
+      <h3>Company</h3>
+        <select id="song_select">
+            <option value="call_me_al.json">Database 1</option>
+          <option value="sledgehammer_2_rounds.json">Database 2</option>
+          <option value="poker_face.json">Database 3</option>
+          <option value="jolene.json">Database 4</option>
+          <option value="helplessness_blues.json">Database 5</option>
+          <option value="she_said.json">Database 6</option>
+          <option value="short_skirt.json">Database 7</option>
+        </select>
+      <div class="row">
+        <div class="col-md-3" id="layouts">
+          <p class="control-label">Layout</p>
+          <a type="button" class="btn btn-info" id="force">Force Directed</a>
+          <a type="button" class="btn btn-info" id="radial">Investors</a>
+        </div>
+        <div class="col-md-3" id="filters">
+          <p class="control-label">Filter</p>
+          <a type="button" class="btn btn-primary" id="popular">Popular</a>
+          <a type="button" class="btn btn-primary" id="obscure">Obscure</a>
+        </div>
+        <div class="col-md-3" id="sorts">
+          <p class="control-label">Sort</p>
+          <a type="button" class="btn btn-success" id="songs">Nodes</a>
+          <a type="button" class="btn btn-success" id="links">Links</a>          
+        </div>      
+        <form id="search_form" action=""  method="post" class="col-md-3 form-group" role="form">
+          <p class="control-label">Search</p>
+          <input type="search" class="form-control" id="search" placeholder="Search Company">
+        </form>
+      </div>
+
+      <div id="main" role="main">
+        <div id="vis"></div>
+      </div>
+
+      
+      <hr class="featurette-divider">
       <!-- Footer
       ================================================== --> 
       <footer>
@@ -201,8 +242,15 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/libs/bootstrap.min.js' %}"></script>
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="{% static 'js/main.js' %}"></script>
+    <!-- Graph needed
+    ================================================== -->
+    <script defer src="{% static 'js/plugins.js' %}"></script>
+    <script src="{% static 'js/libs/coffee-script.js' %}"></script>
+    <script src="{% static 'js/Tooltip.js' %}"></script>
+    <script type="text/coffeescript" src="{% static 'coffee/vis.coffee' %}"></script>
+
   </body>
 </html>
