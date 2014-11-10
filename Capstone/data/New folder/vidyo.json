@@ -1,0 +1,250 @@
+{
+    "timeline":
+    {
+        "headline":"Timeline of Vidyo",
+        "type":"default",
+        "text":"<p>Timeline shows all the major events happened in Vidyo</p>",
+        "asset": {
+            "media":"",
+            "credit":"Credit Name Goes Here, Credit Tao",
+            "caption":"Caption text goes here, caption Tao"
+        },
+        "date": [
+            {
+                "startDate":"2007,6,28",
+                "endDate":"",
+                "headline":"Executive Inauguration",
+                "text":"<p>Title: General Partner of Sevin Rosen Funds. Name: Jon Bayless</p>",
+                "tag":"",
+                "classname":"",
+                "asset": {
+                    "media":"",
+                    "thumbnail":"",
+                    "credit":"",
+                    "caption":""
+                }
+            },
+            {
+                "startDate":"2007,1,0",
+                "endDate":"",
+                "headline":"Executive Inauguration",
+                "text":"<p>Title: General Partner of . Name: Doug Carlisle</p>",
+                "tag":"",
+                "classname":"",
+                "asset": {
+                    "media":"",
+                    "thumbnail":"",
+                    "credit":"",
+                    "caption":""
+                }
+            },
+            {
+                "startDate":"2007,1,0",
+                "endDate":"",
+                "headline":"Executive Inauguration",
+                "text":"<p>Title: Chief Scientist. Name: Kevin Haley</p>",
+                "tag":"",
+                "classname":"",
+                "asset": {
+                    "media":"",
+                    "thumbnail":"",
+                    "credit":"",
+                    "caption":""
+                }
+            },
+            {
+                "startDate":"2007,10,1",
+                "endDate":"",
+                "headline":"Acquire Investment",
+                "text":"<p>Get investment from Star Ventures for the amount of 12M</p>",
+                "tag":"",
+                "classname":"",
+                "asset": {
+                    "media":"",
+                    "thumbnail":"",
+                    "credit":"",
+                    "caption":""
+                }
+            },
+            {
+                "startDate":"2008,1,0",
+                "endDate":"",
+                "headline":"Executive Inauguration",
+                "text":"<p>Title: Director, Member of Finance Committee and Member of Compensation Committee of Verenium Corporation. Name: Joshua Ruch</p>",
+                "tag":"",
+                "classname":"",
+                "asset": {
+                    "media":"",
+                    "thumbnail":"",
+                    "credit":"",
+                    "caption":""
+                }
+            },
+            {
+                "startDate":"2008,1,0",
+                "endDate":"",
+                "headline":"Executive Inauguration",
+                "text":"<p>Title: Managing Director, EMEA. Name: Anne de Kerckhove</p>",
+                "tag":"",
+                "classname":"",
+                "asset": {
+                    "media":"",
+                    "thumbnail":"",
+                    "credit":"",
+                    "caption":""
+                }
+            },
+            {
+                "startDate":"2008,8,1",
+                "endDate":"",
+                "headline":"Acquire Investment",
+                "text":"<p>Get investment from Sevin Rosen Funds for the amount of 3M</p>",
+                "tag":"",
+                "classname":"",
+                "asset": {
+                    "media":"",
+                    "thumbnail":"",
+                    "credit":"",
+                    "caption":""
+                }
+            },
+            {
+                "startDate":"2009,1,0",
+                "endDate":"",
+                "headline":"Executive Inauguration",
+                "text":"<p>Title: Chief Technology Officer. Name: Ajay Sravanapudi</p>",
+                "tag":"",
+                "classname":"",
+                "asset": {
+                    "media":"",
+                    "thumbnail":"",
+                    "credit":"",
+                    "caption":""
+                }
+            },
+            {
+                "startDate":"2009,1,0",
+                "endDate":"",
+                "headline":"Executive Inauguration",
+                "text":"<p>Title: Chief Development Officer</p>",
+                "tag":"",
+                "classname":"",
+                "asset": {
+                    "media":"",
+                    "thumbnail":"",
+                    "credit":"",
+                    "caption":""
+                }
+            },
+            {
+                "startDate":"2009,3,1",
+                "endDate":"",
+                "headline":"Acquire Investment",
+                "text":"<p>Get investment from Star Ventures for the amount of 15M</p>",
+                "tag":"",
+                "classname":"",
+                "asset": {
+                    "media":"",
+                    "thumbnail":"",
+                    "credit":"",
+                    "caption":""
+                }
+            },
+            {
+                "startDate":"2010,1,0",
+                "endDate":"",
+                "headline":"Executive Inauguration",
+                "text":"<p>Title: Venture Partner of . Name: Avery More</p>",
+                "tag":"",
+                "classname":"",
+                "asset": {
+                    "media":"",
+                    "thumbnail":"",
+                    "credit":"",
+                    "caption":""
+                }
+            },
+            {
+                "startDate":"2011,9,1",
+                "endDate":"",
+                "headline":"Acquire Investment",
+                "text":"<p>Get investment from Sevin Rosen Funds for the amount of 22.5M</p>",
+                "tag":"",
+                "classname":"",
+                "asset": {
+                    "media":"",
+                    "thumbnail":"",
+                    "credit":"",
+                    "caption":""
+                }
+            },
+            {
+                "startDate":"2012,10,1",
+                "endDate":"",
+                "headline":"Executive Inauguration",
+                "text":"<p>Title: VP, Product Marketing. Name: Joan Vandermate</p>",
+                "tag":"",
+                "classname":"",
+                "asset": {
+                    "media":"",
+                    "thumbnail":"",
+                    "credit":"",
+                    "caption":""
+                }
+            },
+            {
+                "startDate":"2012,5,1",
+                "endDate":"",
+                "headline":"Acquire Investment ",
+                "text":"<p>Get investment from Star Ventures for the amount of 2M</p>",
+                "tag":"",
+                "classname":"",
+                "asset": {
+                    "media":"",
+                    "thumbnail":"",
+                    "credit":"",
+                    "caption":""
+                }
+            },
+            {
+                "startDate":"2013,4,1",
+                "endDate":"",
+                "headline":"Acquire Investment",
+                "text":"<p>Get investment from Sevin Rosen Funds for the amount of 17.1M</p>",
+                "tag":"",
+                "classname":"",
+                "asset": {
+                    "media":"",
+                    "thumbnail":"",
+                    "credit":"",
+                    "caption":""
+                }
+            },
+            {
+                "startDate":"2014,7,1",
+                "endDate":"",
+                "headline":"Acquire Investment ",
+                "text":"<p>Get investment from Sevin Rosen Funds for the amount of 20M</p>",
+                "tag":"",
+                "classname":"",
+                "asset": {
+                    "media":"",
+                    "thumbnail":"",
+                    "credit":"",
+                    "caption":""
+                }
+            }
+
+        ],
+        "era": [
+            {
+                "startDate":"",
+                "endDate":"",
+                "headline":"",
+                "text":"<p></p>",
+                "tag":""
+            }
+
+        ]
+    }
+}

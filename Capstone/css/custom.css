@@ -1,0 +1,153 @@
+/* GLOBAL STYLES
+-------------------------------------------------- */
+/* Padding below the footer and lighter body text */
+
+body {
+  font-family: "Source Sans Pro",sans-serif;
+  padding-bottom: 40px;
+  color: #5a5a5a;
+}
+
+.container.marketing {
+	text-align: center;
+}
+
+.container.marketing div{
+	margin-top: 5em;
+}
+
+footer {
+	color: #999;
+	text-align: center;
+	font-weight: bold;
+}
+
+/* signin page
+-------------------------------------------------- */
+#signin{
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* STYLES in company page
+-------------------------------------------------- */
+#completion {
+	margin-top: 2em;
+}
+#completion a{
+	text-decoration: none;
+	color:#999;
+	font-size: 4em;
+}
+#completion a:hover {
+	color:black;
+}
+#completionLabel {
+	font-size:12px;
+	color:#999;
+}
+
+.control-label {
+	margin-top: 1em;
+	font-size: 1.5em;
+}
+
+@media (max-width: 990px) {
+	.jumbotron {
+		text-align: center
+	}
+	img {
+		margin: 0 auto;
+	}
+}
+
+#solve {
+	margin: 0 auto;
+	width: 900px;
+	height: 900px;
+	background-color: red;
+}
+
+/* tooltip in company page
+-------------------------------------------------- */
+.tooltip {
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  -moz-border-radius:3px;
+  border-radius: 3px;
+  border: 2px solid #DDD;
+  background: #fff;
+  opacity: 1;
+  color: #000;
+  padding: 10px;
+  width: 300px;
+  font-size: 15px;
+  z-index: 120;
+}
+
+.tooltip p.main {
+  font-size: 15px;
+  text-align: center;
+  padding:0;
+  margin:0;
+}
+
+hr.tooltip-hr {
+  padding:3px 0 0 0;
+  margin:3px 0 3px 0;
+}
+
+.tooltip .title {
+  font-size: 20px;
+  line-height: 24px;
+}
+ 
+.tooltip .name {
+  font-weight:bold;
+}
+
+/* time line in company page
+-------------------------------------------------- */
+#timeline_nav {
+  height: 800px;
+}
+.flag-content h3{
+  
+}
