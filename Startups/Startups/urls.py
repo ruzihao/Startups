@@ -7,9 +7,10 @@ urlpatterns = patterns('',
     # url(r'^$', 'Startups.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'^$', index_view, name='home'),
+    # url(r'^$', index_view, name='home'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^companies/', include('companies.urls')),
-    url(r'^profiles/', include('profiles.urls')),
+    # url(r'^profiles/', include('profiles.urls')),
+    url(r'^$', include('profiles.urls')),
     # url(r'^hello/$', hello_view),
 )
