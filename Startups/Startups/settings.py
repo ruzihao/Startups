@@ -51,7 +51,7 @@ MIDDLEWARE_CLASSES = (
     'lockdown.middleware.LockdownMiddleware',
 )
 
-LOCKDOWN_PASSWORDS = ('letmein',)
+LOCKDOWN_PASSWORDS = ('huixiong',)
 
 ROOT_URLCONF = 'Startups.urls'
 
@@ -67,7 +67,8 @@ DATABASES = {
 		# 'NAME': 'companies',
                 'NAME': 'spokeintel',
 		'USER': 'root',
-		'PASSWORD': 'huixiong',
+		# 'PASSWORD': 'huixiong',
+        'PASSWORD': '976269',
 		'HOST': '127.0.0.1',
 		'PORT': '3306',
 #        'ENGINE': 'django.db.backends.sqlite3',

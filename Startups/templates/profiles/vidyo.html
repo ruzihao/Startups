@@ -1,0 +1,335 @@
+{% load staticfiles %}
+
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- Icon -->
+      <link rel="icon" href="{% static 'img/favicon.ico' %}">      
+      <!-- Bootstrap core CSS -->
+      <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+      <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+          <![endif]-->
+      <!-- Carousel styles
+      <link href="css/carousel.css" rel="stylesheet"> -->
+      <!-- Custom styles -->
+      <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+      <!-- TimelineJS CSS -->
+      <link rel="stylesheet" type="text/css" href="http://cdn.knightlab.com/libs/timeline/latest/css/timeline.css">
+      <title> Vidyo </title>
+    </head>
+
+    <body>
+      <!-- NAVBAR
+      ================================================== -->
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="home.html">Home</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span> Lists</a></li>
+              <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+              <li><a href="#"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+            </ul>
+            <form role="form" class="navbar-form navbar-right">
+              <input type="text" class="form-control" placeholder="Search...">
+              <a href="#" class="btn btn-info"><span class="glyphicon glyphicon-search"></span> Search</a>
+            </form> 
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <!-- JUMBOTRON
+        ================================================== -->    
+        <div class="jumbotron" style="margin-top:6em;background-color:#B5FF8B" title="Growing Amazing Fast!">
+          <div class="row">
+            <div class="col-md-2"> <!-- Company logo here -->
+              <img class="img-responsive" src="{% static 'img/company_img_1.png' %}" alt="Company logo">
+            </div>
+            <div class="col-md-6">
+              <h1>Vidyo</h1> <!-- Tao: Company name here -->
+              <p>Internet Publishing and Broadcasting and Web Search Portals</p> <!-- Tao: Short_description here -->
+            </div>
+            <div class="col-md-4">
+              <div class="row">
+                <a href="#" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-up"></span> Follow</a>
+                <a href="#" class="btn btn-default"> Claim</a>
+                <a href="#" class="btn btn-default"><span class="glyphicon glyphicon-share"></span> Share</a>
+                <a href="#" class="btn btn-default"> &lt; / &gt;</a>            
+              </div>
+              <div class="row" id="completion">              
+                <div class="col-md-3 col-md-push-4"><a href="#">87.0%</a></div> <!-- Completion here -->              
+              </div>
+              <div class="row">
+                <div class="col-md-7 col-md-push-5"><p id="completionLabel">Profile completion</p></div> <!-- Completion here -->
+              </div>
+              
+            </div>
+          </div>
+        </div>
+
+      <!-- NAV
+      ================================================== -->
+       <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active"><a href="#basicInfor_nav" role="tab" data-toggle="tab">Basic Infor</a></li>
+          <li role="presentation"><a href="#graph_nav" role="tab" data-toggle="tab">Graph</a></li>
+          <li role="presentation"><a id="timeline_a"href="#timeline_nav" role="tab" data-toggle="tab">Timeline</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <!-- Pane_1 main content
+          ================================================== --> 
+          <div role="tabpanel" class="tab-pane fade in active" id="basicInfor_nav">            
+            <div id="main_content" class="row">
+              <article class="col-md-8">
+                <h2>Company information</h2>
+                <h3>Summary</h3>
+                <!-- Tao: Summary here -->   
+                <p>Vidyo is the world’s largest online graphic design marketplace, connecting startups, small businesses, marketing agencies and other organizations with design needs with more than 250,000 graphic designers from 192 countries around the world. Since its 2008 founding in Melbourne, Australia, 99designs has hosted more than 250,000 design contests for customers and has paid out in excess of  $62 million to its design community.</p>
+                <p>Vidyo enables customers to source graphic design work quickly and affordably by launching design contests to its community, working 1-on-1 with individual designers, or purchasing design templates from 99designs’ readymade logo store. 99designs also operates Swiftly.com, a service launched in 2013 that provides customers with quick graphic design fixes for a flat $15 fee.</p>
+                <p>The company opened its San Francisco office in 2010, established European headquarters in Berlin in 2012, and subsequently opened offices in Paris, London and Rio de Janeiro. In addition to English, 99designs operates localized versions of its site in German, French, Italian, Spanish, Dutch and Portuguese.</p>
+                <h3>Others</h3>
+                <p>You can find other useful information in the following table</p>
+                <div class="table-responsive">
+                  <table class="table table-condensed table-striped table-hover">
+                    <thead>
+                      <tr>
+                        <th colspan="2">Industry Information</th>          
+                        <th colspan="2">Geography Information</th>   
+                      </tr>
+                      <tr>
+                        <th>Name</th>          
+                        <th>Value</th>
+                        <th>Name</th>          
+                        <th>Value</th>                      
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>CID</td> <!-- Tao: cid here -->  
+                        <td>7</td>
+                        <td>Alias</td> <!-- Tao: Alias here -->  
+                        <td>Brigham &amp; Rago</td>
+                      </tr>
+                      <tr>
+                        <td>Status</td> <!-- Tao: Status here -->  
+                        <td>Privately Held</td>
+                        <td>Branch</td> <!-- Tao: Branch here -->  
+                        <td>Headquarters Office</td>
+                      </tr>
+                      <tr>
+                        <td>Industry</td> <!-- Tao: Industry here -->  
+                        <td>Advertising Service</td>
+                        <td>Country</td> <!-- Tao: Country here -->
+                        <td>CA</td>
+                      </tr>
+                      <tr>
+                        <td>Founded On</td> <!-- Tao: Founded_on here -->
+                        <td>Feb-10</td>
+                        <td>State</td> <!-- Tao: State here -->
+                        <td>Sterling</td>
+                      </tr>
+                      <tr>
+                        <td>People</td> <!-- Tao: People here -->
+                        <td>25 - 50</td>
+                        <td>City</td> <!-- Tao: City here -->
+                        <td>Portland</td>
+                      </tr>
+                      <tr>
+                        <td>Yearly Revenue</td> <!-- Tao: Yearly Revenue here -->
+                        <td>1M to 2.5M</td>
+                        <td>Postal Code</td> <!-- Tao: Postal Code here -->
+                        <td>L6V 1Y2</td>
+                      </tr>
+                      <tr>
+                        <td>Location</td>  <!-- Tao: Location here -->
+                        <td>Sterling, VA</td>
+                        <td>Address Line</td>  <!-- Tao: Address Line -->
+                        <td>55 North 3rd Street</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>          
+              </article>
+            
+              <aside class="col-md-offset-1 col-md-3">
+                <div class="panel panel-info"><!-- Panel Links -->
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Links</h3>
+                  </div>
+                  <div class="list-group">
+                    <!-- Tao: Company Website here -->
+                    <a href="http://99designs.com/?gclid=CMff79bbwagCFQkLbAodIjSfpg" class="list-group-item">Company Website</a>
+                    <!-- Tao: Company Blog here -->
+                    <a href="http://blog.99designs.com/" class="list-group-item">Company Blog</a>
+                  </div>
+                </div><!-- end panel links -->
+
+                <div class="panel panel-info"><!-- Panel Contact Infor -->
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Contact Information</h3>
+                  </div>
+                  <div class="list-group">
+                    <!-- Tao: contact_info_email here -->
+                    <p class="list-group-item"><span class="glyphicon glyphicon-envelope"></span> Email: info@a1soundproof.com</p>
+                    <!-- Tao: contact_info_tel here -->
+                    <p class="list-group-item"><span class="glyphicon glyphicon-phone-alt"></span> Telephone: 1-888-747-9891</p>
+                  </div>
+                </div><!-- end panel links -->
+              </aside>
+            </div>
+          </div><!-- End Pane_1 main content -->
+
+          <!-- Pane_2 Graph
+          ================================================== --> 
+          <div role="tabpanel" class="tab-pane fade" id="graph_nav">             
+            <div id="graph">              
+              <h2 style="text-align:left">Networks Visulization</h2>
+              <p>We use different size, color, of nodes and the edge between nodes to visulize information</p>     
+              <div class="row">
+                <div class="col-md-3" id="layouts">
+                  <p class="control-label">Layout</p>
+                  <a class="btn btn-info" id="force">Force Directed</a>
+                  <a class="btn btn-info" id="radial">Industries</a>
+                </div>
+                <div class="col-md-3" id="filters">
+                  <p class="control-label">Filter</p>
+                  <a class="btn btn-primary" id="all">All</a>
+                  <a class="btn btn-primary" id="popular">&gt; 10M</a>
+                  <a class="btn btn-primary" id="obscure">&lt; 10M</a>
+                </div>
+                <div class="col-md-3" id="sorts">
+                  <p class="control-label">Sort(Unimplement)</p>
+                  <a class="btn btn-success" id="songs" disabled>Nodes</a>
+                  <a class="btn btn-success" id="links" disabled>Links</a>          
+                </div>      
+                <div class="col-md-3">
+                  <h3>Company</h3>
+                  <select id="song_select">
+                    <option value="graph_vidyo.json">Startup to Startup</option>
+                    <option value="graph_jolene.json">Organizational Structure</option>
+                    <option value="graph_poker_face.json">VC to Startup</option>
+                    <!--
+                    <option value="sledgehammer_2_rounds.json">Database 4</option>
+                    <option value="helplessness_blues.json">Database 5</option>
+                    <option value="she_said.json">Database 6</option>
+                    <option value="short_skirt.json">Database 7</option> -->
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-9">
+                  <div id="main" role="main">
+                    <div id="vis"></div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div id="legend"></div>
+                </div>
+              </div>
+            </div>  
+          </div><!-- End Pane_2 graph -->
+
+          <!-- Pane_3 time line
+          ================================================== --> 
+          <div role="tabpanel" class="tab-pane fade" id="timeline_nav">            
+            <div id="time_line">
+              <h3>Time line</h3>
+              <div id="my-timeline"></div>
+            </div>
+          </div><!-- End Pane_3 time line -->
+        </div><!-- End tab panes -->
+
+        <!-- Diverder
+        ================================================== -->
+        <hr class="featurette-divider">
+
+        <!-- FOOTER
+        ================================================== --> 
+        <footer>
+          <p class="pull-right"><a href="#">Back to top</a></p>
+          <p>&copy; 2014 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+        </footer>
+      </div><!-- end of container -->
+
+      <!-- Bootstrap core JavaScript
+      ================================================== -->
+      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script src="js/libs/bootstrap.min.js"></script>
+      <!-- D3
+      ================================================== -->
+      <script src="js/libs/d3.v2.min.js"></script>
+
+      <!-- Graph
+      ================================================== -->
+      <script src="js/libs/modernizr-2.0.6.min.js"></script>
+      <script defer src="js/plugins.js"></script>
+      <script src="js/libs/coffee-script.js"></script>
+      <script src="js/tooltip.js"></script>
+      <script type="text/coffeescript" src="coffee/vis.coffee"></script>
+
+      <!-- Time line
+      ================================================== -->
+      <!-- Time line liberary in CDN-->
+      <script type="text/javascript" src="http://cdn.knightlab.com/libs/timeline/latest/js/storyjs-embed.js"></script>
+      <!-- Inline script to create timeline -->
+      <script>
+        $(document).ready(function() {        
+            $("#timeline_a").click(function(){
+              //If timeline has already be create, just return.
+              if ($("#my-timeline").text() != "") return; 
+              //Else create timeline using setTimeout.
+              //The reason to use setTimeout is to give the browser plenty of time to load page 
+              //before the timeline function is called
+              //There are 2 nested setTimeout
+              //  The outer one will call a function to create a timeline after a certain delay
+              //  The inner one will call a function to color the laber in timeline based on the 
+              //    content of the event
+              setTimeout(function(){
+                createStoryJS({
+                  type:       'timeline',
+                  width:      '100%',
+                  height:     '500',
+                  source:     'data/timeline_vidyo.json', //Locate the data
+                  embed_id:   'my-timeline',
+                  start_zoom_adjust:  '0',
+                  hash_bookmark: 'false',
+                  debug: 'false'
+                });
+
+                setTimeout(function(){
+                  var tags = $(".flag-content h3");              
+                  for (var i = 0; i < tags.length; i++) {
+                    var str = tags[i].innerHTML;
+                    //If the tag contains "Executive", color it #2C85E8
+                    if (str.search("Executive") != -1) tags[i].style.color = "#2C85E8";
+                    //If the tag contains "Acquire", color it #80E844
+                    else if (str.search("Acquire") != -1) tags[i].style.color = "#80E844";
+                  }
+                },1000); 
+
+              },1000);            
+            });
+        });
+      </script>
+    </body>
+  </html>

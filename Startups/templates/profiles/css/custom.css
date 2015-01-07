@@ -1,28 +1,71 @@
 /* GLOBAL STYLES
 -------------------------------------------------- */
-/* Padding below the footer and lighter body text */
-
 body {
   font-family: "Source Sans Pro",sans-serif;
   padding-bottom: 40px;
-  color: #5a5a5a;
+  color: #5a5a5a;  
 }
-
-.container.marketing {
-	text-align: center;
-}
-
-.container.marketing div{
-	margin-top: 5em;
-}
-
 footer {
-	color: #999;
-	text-align: center;
-	font-weight: bold;
+  color: #999;
+  font-weight: bold;
+}
+img {
+  margin: 0 auto;
+}
+p {
+  text-align: left;
+}
+ul, li
+{
+    list-style-type: none;
+    padding: 0; 
+    margin: 0;
+    text-align: left;
+}
+/* SIGNIN PAGE
+-------------------------------------------------- */
+#signin{
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
-/* STYLES in company page
+
+/* COMPANY PAGE
 -------------------------------------------------- */
 #completion {
 	margin-top: 2em;
@@ -39,17 +82,171 @@ footer {
 	font-size:12px;
 	color:#999;
 }
-
 .control-label {
 	margin-top: 1em;
 	font-size: 1.5em;
 }
+#solve {
+	margin: 0 auto;
+	width: 900px;
+	height: 900px;
+	background-color: red;
+}
 
-@media (max-width: 990px) {
-	.jumbotron {
-		text-align: center
-	}
-	img {
-		margin: 0 auto;
-	}
+/* Tooltip */
+.tooltip {
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  -moz-border-radius:3px;
+  border-radius: 3px;
+  border: 2px solid #DDD;
+  background: #fff;
+  opacity: 1;
+  color: #000;
+  padding: 10px;
+  width: 300px;
+  font-size: 15px;
+  z-index: 120;
+}
+.tooltip p.main {
+  font-size: 15px;
+  text-align: center;
+  padding:0;
+  margin:0;
+}
+hr.tooltip-hr {
+  padding:3px 0 0 0;
+  margin:3px 0 3px 0;
+}
+.tooltip .title {
+  font-size: 20px;
+  line-height: 24px;
+}
+.tooltip .name {
+  font-weight:bold;
+}
+
+/* Time line */
+#timeline_nav {
+  height: 800px;
+}
+.flag-content h3{
+  
+}
+
+
+/* HOME PAGE
+-------------------------------------------------- */
+/* Navbar */
+.navbar-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 20;
+}
+.navbar-wrapper > .container {
+  padding-right: 0;
+  padding-left: 0;
+}
+.navbar-wrapper .navbar {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+.navbar-wrapper .navbar .container {
+  width: auto;
+}
+
+/* Carousel */
+/* carousel base class */
+.carousel {
+  height: 500px;
+  margin-bottom: 60px;
+}
+/* since positioning the image, we need to help out the caption */
+.carousel-caption {
+  z-index: 10;
+}
+/* declare heights because of positioning of img element */
+.carousel .item {
+  height: 500px;
+  background-color: #777;
+}
+.carousel-inner > .item > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  height: 500px;
+}
+
+/* Marketing */
+.marketing {
+  text-align: center;
+}
+.marketing div{
+  margin-top: 5em;
+}
+.marketing h2 {
+  font-weight: normal;
+}
+.marketing .col-lg-4 p {
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Featurettes */
+.featurette-divider {
+  margin: 80px 0;
+}
+
+/* Thin out the marketing headings */
+.featurette-heading {
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+
+/* RESPONSIVE CSS
+-------------------------------------------------- */
+@media (min-width: 768px) {
+  .navbar-wrapper {
+    margin-top: 20px;
+  }
+
+  .navbar-wrapper .container {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  
+  .navbar-wrapper .navbar {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  /* The navbar becomes detached from the top, so we round the corners */
+  .navbar-wrapper .navbar {
+    border-radius: 4px;
+  }
+
+  /* Bump up size of carousel content */
+  .carousel-caption p {
+    margin-bottom: 20px;
+    font-size: 21px;
+    line-height: 1.4;
+  }
+
+  .featurette-heading {
+    font-size: 50px;
+  }
+}
+
+@media (max-width: 760px) {
+  body {
+    text-align: center;
+  } 
 }

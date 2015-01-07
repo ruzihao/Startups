@@ -1,3 +1,4 @@
+
 root = exports ? this
 
 # Help with the placement of nodes
@@ -37,7 +38,7 @@ RadialPlacement = () ->
     current += increment
     value
 
-  # Given a set of keys, perform some 
+   # Given a set of keys, perform some 
   # magic to create a two ringed radial layout.
   # Expects radius, increment, and center to be set.
   # If there are a small number of keys, just make
@@ -103,7 +104,7 @@ RadialPlacement = () ->
 Network = () ->
   # variables we want to access
   # in multiple places of Network
-  width = 1160
+  width = 960
   height = 800
   # allData will store the unfiltered data
   allData = []
@@ -118,12 +119,6 @@ Network = () ->
   # of the nodes and links
   node = null
   link = null
-  # Tao
-  legend_nodesG = null
-  legend_node = null
-  legend_textsG = null
-  legend_text = null
-
   # variables to refect the current settings
   # of the visualization
   layout = "force"
@@ -156,12 +151,8 @@ Network = () ->
     linksG = vis.append("g").attr("id", "links")
     nodesG = vis.append("g").attr("id", "nodes")
 
-    # Tao
-    legend_nodesG = vis.append("g").attr("id", "legend_nodes")
-    legend_textsG = vis.append("g").attr("id", "legend_texts")
-
     # setup the size of the force environment
-    force.size([width-300, height])
+    force.size([width, height])
 
     setLayout("force")
     setFilter("all")
@@ -351,7 +342,7 @@ Network = () ->
 
   updateCenters = (artists) ->
     if layout == "radial"
-      groupCenters = RadialPlacement().center({"x":width/2-300, "y":height / 2 - 100})
+      groupCenters = RadialPlacement().center({"x":width/2, "y":height / 2 - 100})
         .radius(300).increment(18).keys(artists)
 
   # Removes links from allLinks whose
@@ -380,36 +371,6 @@ Network = () ->
       .on("mouseout", hideDetails)
 
     node.exit().remove()
-
-    # Tao display for legend
-    legend_node = legend_nodesG.selectAll("circle.legend_nodes")
-      .data(curNodesData, (d) -> d.id)
-
-    legend_node.enter().append("circle")
-      .attr("class", "legend_nodes")
-      .attr("cx", (d,i) -> d.x)
-      .attr("cy", (d,i) -> d.y)
-      .attr("r", (d) -> d.radius)
-      .style("fill", (d) -> nodeColors(d.artist))
-      .style("stroke", (d) -> strokeFor(d))
-      .style("stroke-width", 1.0)
-
-    legend_node.exit().remove()
-
-    # Tao display for legend text
-    legend_text = legend_textsG.selectAll("text.legend_texts")
-      .data(curNodesData, (d) -> d.id)
-
-    legend_text.enter().append("text")
-      .text((d) -> d.name)
-      .attr("class", "legend_texts")
-      .attr("x", (d,i) -> d.x)
-      .attr("y", (d,i) -> d.y)
-      .attr("font-family", "sans-serif")
-      .attr("font-size", "11px")
-      .attr("fill", "black")
-
-    legend_text.exit().remove()
 
   # enter/exit display for links
   updateLinks = () ->
@@ -457,15 +418,6 @@ Network = () ->
       .attr("x2", (d) -> d.target.x)
       .attr("y2", (d) -> d.target.y)
 
-    # Tao for present, just draw 50 nodes in legend, and remove the rest out of svg
-    legend_node
-      .attr("cx", (d,i) -> if i > 50 then -100 else width - (i%2)*250 - 150)
-      .attr("cy", (d,i) -> if i > 50 then -100 else Math.floor((i/2))*30 + 20)
-
-    legend_text
-      .attr("x", (d,i) -> if i > 50 then -100 else width - (i%2)*250 - 130)
-      .attr("y", (d,i) -> if i > 50 then -100 else Math.floor((i/2))*30 + 25)
-
   # tick function for radial layout
   radialTick = (e) ->
     node.each(moveToRadialLayout(e.alpha))
@@ -477,15 +429,6 @@ Network = () ->
     if e.alpha < 0.03
       force.stop()
       updateLinks()
-
-    # Tao for present, just draw 50 nodes in legend, and remove the rest out of svg
-    legend_node
-      .attr("cx", (d,i) -> if i > 50 then -100 else width - (i%2)*250 - 150)
-      .attr("cy", (d,i) -> if i > 50 then -100 else Math.floor((i/2))*30 + 20)
-
-    legend_text
-      .attr("x", (d,i) -> if i > 50 then -100 else width - (i%2)*250 - 130)
-      .attr("y", (d,i) -> if i > 50 then -100 else Math.floor((i/2))*30 + 25)
 
   # Adjusts x/y for each node to
   # push them towards appropriate location.
@@ -579,5 +522,5 @@ $ ->
     searchTerm = $(this).val()
     myNetwork.updateSearch(searchTerm)
 
-  d3.json "data/graph_vidyo.json", (json) ->
+  d3.json "data/call_me_al.json", (json) ->
     myNetwork("#vis", json)
