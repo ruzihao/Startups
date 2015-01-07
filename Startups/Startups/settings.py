@@ -36,7 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	'companies',
+    'companies',
     'profiles',
     'lockdown',
 )
@@ -65,9 +65,9 @@ DATABASES = {
     'default': {
 		'ENGINE': 'django.db.backends.mysql',
 		# 'NAME': 'companies',
-        'NAME': 'spokeintel',
+                'NAME': 'spokeintel',
 		'USER': 'root',
-		'PASSWORD': '976269',
+		'PASSWORD': 'huixiong',
 		'HOST': '127.0.0.1',
 		'PORT': '3306',
 #        'ENGINE': 'django.db.backends.sqlite3',
