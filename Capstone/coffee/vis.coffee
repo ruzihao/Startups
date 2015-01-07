@@ -37,7 +37,7 @@ RadialPlacement = () ->
     current += increment
     value
 
-   # Given a set of keys, perform some 
+  # Given a set of keys, perform some 
   # magic to create a two ringed radial layout.
   # Expects radius, increment, and center to be set.
   # If there are a small number of keys, just make
@@ -579,5 +579,5 @@ $ ->
     searchTerm = $(this).val()
     myNetwork.updateSearch(searchTerm)
 
-  d3.json "data/call_me_al.json", (json) ->
+  d3.json "data/graph_vidyo.json", (json) ->
     myNetwork("#vis", json)
