@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
+import os, platform
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # Quick-start development settings - unsuitable for production
@@ -61,14 +61,18 @@ WSGI_APPLICATION = 'Startups.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
+if 'Windows-7-6.1.7601-SP1' not in platform.platform():
+	db_password = 'huixiong'
+else:
+	db_password = ''
+		
 DATABASES = {
     'default': {
 		'ENGINE': 'django.db.backends.mysql',
 		# 'NAME': 'companies',
         'NAME': 'spokeintel',
 		'USER': 'root',
-		'PASSWORD': 'huixiong',
-		'PASSWORD': '',
+		'PASSWORD': db_password,
 		'HOST': '127.0.0.1',
 		'PORT': '3306',
 #        'ENGINE': 'django.db.backends.sqlite3',
