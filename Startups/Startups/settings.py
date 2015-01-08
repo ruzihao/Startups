@@ -51,7 +51,7 @@ MIDDLEWARE_CLASSES = (
     'lockdown.middleware.LockdownMiddleware',
 )
 
-LOCKDOWN_PASSWORDS = ('letmein',)
+LOCKDOWN_PASSWORDS = ('huixiong',)
 
 ROOT_URLCONF = 'Startups.urls'
 
