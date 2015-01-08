@@ -130,7 +130,7 @@ Network = () ->
   filter = "all"
   sort = "songs"
   # groupCenters will store our radial layout for
-  # the group by artist layout.
+  # the group by description layout.
   groupCenters = null
 
   # our force directed layout
@@ -140,7 +140,7 @@ Network = () ->
   # tooltip used to display details
   tooltip = Tooltip("vis-tooltip", 230)
 
-  # charge used in artist layout
+  # charge used in description layout
   charge = (node) -> -Math.pow(node.radius, 2.0) / 2
 
   # Starting point for network visualization
@@ -183,8 +183,8 @@ Network = () ->
     # sort nodes based on current sort and update centers for
     # radial layout
     if layout == "radial"
-      artists = sortedArtists(curNodesData, curLinksData)
-      updateCenters(artists)
+      descriptions = sorteddescriptions(curNodesData, curLinksData)
+      updateCenters(descriptions)
 
     # reset nodes in force layout
     force.nodes(curNodesData)
@@ -241,7 +241,7 @@ Network = () ->
         d.searched = true
       else
         d.searched = false
-        element.style("fill", (d) -> nodeColors(d.artist))
+        element.style("fill", (d) -> nodeColors(d.description))
           .style("stroke-width", 1.0)
 
   network.updateData = (newData) ->
@@ -255,7 +255,7 @@ Network = () ->
   # Returns modified data
   setupData = (data) ->
     # initialize circle radius scale
-    countExtent = d3.extent(data.nodes, (d) -> d.playcount)
+    countExtent = d3.extent(data.nodes, (d) -> d.invest_value)
     circleRadius = d3.scale.sqrt().range([3, 12]).domain(countExtent)
 
     data.nodes.forEach (n) ->
@@ -264,7 +264,7 @@ Network = () ->
       n.x = randomnumber=Math.floor(Math.random()*width)
       n.y = randomnumber=Math.floor(Math.random()*height)
       # add radius to the node so we can use it later
-      n.radius = circleRadius(n.playcount)
+      n.radius = circleRadius(n.invest_value)
 
     # id's -> node objects
     nodesMap  = mapNodes(data.nodes)
@@ -289,7 +289,7 @@ Network = () ->
 
   # Helper function that returns an associative array
   # with counts of unique attr in nodes
-  # attr is value stored in node, like 'artist'
+  # attr is value stored in node, like 'description'
   nodeCounts = (nodes, attr) ->
     counts = {}
     nodes.forEach (d) ->
@@ -310,49 +310,49 @@ Network = () ->
   filterNodes = (allNodes) ->
     filteredNodes = allNodes
     if filter == "popular" or filter == "obscure"
-      playcounts = allNodes.map((d) -> d.playcount).sort(d3.ascending)
-      cutoff = d3.quantile(playcounts, 0.5)
+      invest_values = allNodes.map((d) -> d.invest_value).sort(d3.ascending)
+      cutoff = d3.quantile(invest_values, 0.5)
       filteredNodes = allNodes.filter (n) ->
         if filter == "popular"
-          n.playcount > cutoff
+          n.invest_value > cutoff
         else if filter == "obscure"
-          n.playcount <= cutoff
+          n.invest_value <= cutoff
 
     filteredNodes
 
-  # Returns array of artists sorted based on
+  # Returns array of descriptions sorted based on
   # current sorting method.
-  sortedArtists = (nodes,links) ->
-    artists = []
+  sorteddescriptions = (nodes,links) ->
+    descriptions = []
     if sort == "links"
       counts = {}
       links.forEach (l) ->
-        counts[l.source.artist] ?= 0
-        counts[l.source.artist] += 1
-        counts[l.target.artist] ?= 0
-        counts[l.target.artist] += 1
-      # add any missing artists that dont have any links
+        counts[l.source.description] ?= 0
+        counts[l.source.description] += 1
+        counts[l.target.description] ?= 0
+        counts[l.target.description] += 1
+      # add any missing descriptions that dont have any links
       nodes.forEach (n) ->
-        counts[n.artist] ?= 0
+        counts[n.description] ?= 0
 
       # sort based on counts
-      artists = d3.entries(counts).sort (a,b) ->
+      descriptions = d3.entries(counts).sort (a,b) ->
         b.value - a.value
       # get just names
-      artists = artists.map (v) -> v.key
+      descriptions = descriptions.map (v) -> v.key
     else
-      # sort artists by song count
-      counts = nodeCounts(nodes, "artist")
-      artists = d3.entries(counts).sort (a,b) ->
+      # sort descriptions by song count
+      counts = nodeCounts(nodes, "description")
+      descriptions = d3.entries(counts).sort (a,b) ->
         b.value - a.value
-      artists = artists.map (v) -> v.key
+      descriptions = descriptions.map (v) -> v.key
 
-    artists
+    descriptions
 
-  updateCenters = (artists) ->
+  updateCenters = (descriptions) ->
     if layout == "radial"
       groupCenters = RadialPlacement().center({"x":width/2-300, "y":height / 2 - 100})
-        .radius(300).increment(18).keys(artists)
+        .radius(300).increment(18).keys(descriptions)
 
   # Removes links from allLinks whose
   # source or target is not present in curNodes
@@ -372,7 +372,7 @@ Network = () ->
       .attr("cx", (d) -> d.x)
       .attr("cy", (d) -> d.y)
       .attr("r", (d) -> d.radius)
-      .style("fill", (d) -> nodeColors(d.artist))
+      .style("fill", (d) -> nodeColors(d.description))
       .style("stroke", (d) -> strokeFor(d))
       .style("stroke-width", 1.0)
 
@@ -390,7 +390,7 @@ Network = () ->
       .attr("cx", (d,i) -> d.x)
       .attr("cy", (d,i) -> d.y)
       .attr("r", (d) -> d.radius)
-      .style("fill", (d) -> nodeColors(d.artist))
+      .style("fill", (d) -> nodeColors(d.description))
       .style("stroke", (d) -> strokeFor(d))
       .style("stroke-width", 1.0)
 
@@ -493,7 +493,7 @@ Network = () ->
   moveToRadialLayout = (alpha) ->
     k = alpha * 0.1
     (d) ->
-      centerNode = groupCenters(d.artist)
+      centerNode = groupCenters(d.description)
       d.x += (centerNode.x - d.x) * k
       d.y += (centerNode.y - d.y) * k
 
@@ -501,13 +501,13 @@ Network = () ->
   # Helper function that returns stroke color for
   # particular node.
   strokeFor = (d) ->
-    d3.rgb(nodeColors(d.artist)).darker().toString()
+    d3.rgb(nodeColors(d.description)).darker().toString()
 
   # Mouseover tooltip function
   showDetails = (d,i) ->
     content = '<p class="main">' + d.name + '</span></p>'
     content += '<hr class="tooltip-hr">'
-    content += '<p class="main">' + d.artist + '</span></p>'
+    content += '<p class="main">' + d.description + '</span></p>'
     tooltip.showTooltip(content,d3.event)
 
     # higlight connected links
@@ -570,14 +570,15 @@ $ ->
     activate("sorts", newSort)
     myNetwork.toggleSort(newSort)
 
-  $("#song_select").on "change", (e) ->
-    songFile = $(this).val()
-    d3.json "data/#{songFile}", (json) ->
-      myNetwork.updateData(json)
-  
+  $("#data_source_select").on "change", (e) ->
+   json_new = $(this).val()
+   root = JSON.parse json_new
+   myNetwork.updateData(root)
+	  
   $("#search").keyup () ->
     searchTerm = $(this).val()
     myNetwork.updateSearch(searchTerm)
 
-  d3.json "data/graph_vidyo.json", (json) ->
-    myNetwork("#vis", json)
+  json_input = $(inv_ele).val()
+  root = JSON.parse json_input
+  myNetwork("#vis", root)

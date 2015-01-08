@@ -1,5 +1,5 @@
 from django.contrib import admin
-# from profiles.models import CbCompanies
+from profiles.models import company_ent
 
 # Register your models here.
-# admin.site.register(CbCompanies)
+admin.site.register(company_ent)

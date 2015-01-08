@@ -36,7 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'companies',
+	'companies',
     'profiles',
     'lockdown',
 )
@@ -51,7 +51,7 @@ MIDDLEWARE_CLASSES = (
     'lockdown.middleware.LockdownMiddleware',
 )
 
-LOCKDOWN_PASSWORDS = ('huixiong',)
+LOCKDOWN_PASSWORDS = ('letmein',)
 
 ROOT_URLCONF = 'Startups.urls'
 
@@ -65,10 +65,10 @@ DATABASES = {
     'default': {
 		'ENGINE': 'django.db.backends.mysql',
 		# 'NAME': 'companies',
-                'NAME': 'spokeintel',
+        'NAME': 'spokeintel',
 		'USER': 'root',
-		# 'PASSWORD': 'huixiong',
-        'PASSWORD': '976269',
+		'PASSWORD': 'huixiong',
+		'PASSWORD': '',
 		'HOST': '127.0.0.1',
 		'PORT': '3306',
 #        'ENGINE': 'django.db.backends.sqlite3',
