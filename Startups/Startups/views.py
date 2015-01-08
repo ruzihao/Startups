@@ -3,4 +3,6 @@ from django.http import HttpResponse
 from django import template
 
 def index_view(request):
-	return HttpResponse(render(request, r"profiles/index.html", {}))
+	t = get_template('home.html')
+	html = t.render()
+	return HttpResponse(html)
