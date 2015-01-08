@@ -72,7 +72,7 @@ DATABASES = {
 		# 'NAME': 'companies',
         'NAME': 'spokeintel',
 		'USER': 'root',
-		'PASSWORD': db_password,
+		'PASSWORD': db_password.encode('utf-8'),
 		'HOST': '127.0.0.1',
 		'PORT': '3306',
 #        'ENGINE': 'django.db.backends.sqlite3',
