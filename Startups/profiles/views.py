@@ -23,6 +23,7 @@ def profiles_view(request, cid):
                self.match = match
                self.description = description
                self.invest_value = invest_value
+               self.url = "/profiles/%d" % cid
           def __repr__(self):
                return "Node %s with id %d<br>" % (self.name, self.id)
 
@@ -146,4 +147,14 @@ def profiles_view(request, cid):
      
      t = get_template('profile.html')
      html = t.render(Context({'company':company_ent.objects.get(pk=cid), 'json': json.dumps(graph,default=object2dict)}))
+     return HttpResponse(html)
+
+	 
+def company_list(request):
+     company_list1 = company_ent.objects.filter(short_description = "Venture Capital")[0:10]
+     company_list2 = company_ent.objects.filter(short_description = "Computer Software")[0:10]
+     company_list3 = company_ent.objects.filter(short_description = "Internet Publishing and Broadcasting and Web Search Portals")[0:10]
+     
+     t = get_template('company_list.html')
+     html = t.render(Context({"company_list1": company_list1, "company_list2": company_list2, "company_list3": company_list3}))
      return HttpResponse(html)
