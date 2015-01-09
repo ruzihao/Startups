@@ -111,12 +111,14 @@ def profiles_view(request, cid):
           investments = find_investments_by_cid(seed)
           if len(investments) > 0:
                invest_sum = investments.aggregate(Sum("amount")).values()
-               #add itself as a node
-               graph.add_node(node(seed, company_ent.objects.get(pk=seed).name, 1, company_ent.objects.get(pk=seed).short_description, int(invest_sum[0].to_integral_value())))
+          else:
+               invest_sum = 1000000 #default value 1M
+          #add itself as a node
+          graph.add_node(node(seed, company_ent.objects.get(pk=seed).name, 1, company_ent.objects.get(pk=seed).short_description, int(invest_sum[0].to_integral_value())))
                
-               #add other nodes
-               for investment in investments:
-                   graph.add_investment(seed, investment)
+          #add other nodes
+          for investment in investments:
+               graph.add_investment(seed, investment)
 
      #retrieve json for graph end here
 
