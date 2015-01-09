@@ -377,7 +377,8 @@ Network = () ->
       .style("stroke-width", 1.0)
 
     node.on("mouseover", showDetails)
-      .on("mouseout", hideDetails)
+      .on("mouseout", hideDetails)	  
+      .on("click", nodeClick)
 
     node.exit().remove()
 
@@ -543,7 +544,14 @@ Network = () ->
     if link
       link.attr("stroke", "#ddd")
         .attr("stroke-opacity", 0.8)
-
+		
+		
+  # node.click function
+  nodeClick = (d) ->
+    window.location.href = d.url
+    #window.location.href = 'http://example.com/'
+  
+  
   # Final act of Network() function is to return the inner 'network()' function.
   return network
 
