@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from Startups.views import index_view
+from Startups.views import home_view
 from django.contrib import admin
 
 urlpatterns = patterns('',
