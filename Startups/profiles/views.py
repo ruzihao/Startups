@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from profiles.models import company_ent, funding_ent, acquisition_ent, member_ent
 from profiles import classes
 from django.db.models import Sum
-from time import strptime
+from time import strptime, localtime
 import json
 
 
@@ -75,6 +75,12 @@ def profiles_view(request, cid):
           return result
 
      timeline = classes.timeline(timeline_headline = "Milestones of %s" % company_ent.objects.get(pk=seed).name, timeline_text="with timeline display")
+
+     #Establishment event
+     query = company_ent.objects.get(pk=cid)
+     if len(query.founded_on) != 0:
+          event_date = read_date(query.founded_on)
+          timeline.add_date(headline="Company founded in %s" % (event_date.tm_year), start_y = event_date.tm_year, start_m = event_date.tm_mon, end_y = event_date.tm_year, end_m = event_date.tm_mon)
 		  
      #Funding events
      queryset = funding_ent.objects.filter(cid = cid)
@@ -104,6 +110,11 @@ def profiles_view(request, cid):
      for query in queryset:
           event_date = read_date(query.since)
           timeline.add_date(headline="Appointed %s to %s:%s" % (query.name, query.category, query.title), start_y = event_date.tm_year, start_m = event_date.tm_mon, end_y = event_date.tm_year, end_m = event_date.tm_mon)
+
+     #Check whether date_list is empty
+     if len(timeline.get_date_list()) == 0:
+          event_date = localtime()
+          timeline.add_date(headline="No event recorded yet", start_y = event_date.tm_year, start_m = event_date.tm_mon, end_y = event_date.tm_year, end_m = event_date.tm_mon)
 
 
      #timeline.add_era(headline="default_era", start_y = 2010, end_y = 2012)

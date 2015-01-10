@@ -180,9 +180,9 @@
                   </div>
                   <div class="list-group">
                     <!-- Tao: Company Website here -->
-                    <a href="{{ company.website }}" class="list-group-item">Company Website: <br>{{ company.website }}</a>
+                    <a href="{{ company.website }}" class="list-group-item">Company Website: <br>{{ company.website|truncatechars:35 }}</a>
                     <!-- Tao: Company Blog here -->
-                    <a href="{{ company.blog }}" class="list-group-item">Company Blog: <br>{{ company.blog }}</a>
+                    <a href="{{ company.blog }}" class="list-group-item">Company Blog: <br>{{ company.blog|truncatechars:35 }}</a>
                   </div>
                 </div><!-- end panel links -->
 
@@ -192,9 +192,9 @@
                   </div>
                   <div class="list-group">
                     <!-- Tao: contact_info_email here -->
-                    <p class="list-group-item"><span class="glyphicon glyphicon-envelope"></span> Email: {{ company.contact_info_email }}</p>
+                    <p class="list-group-item"><span class="glyphicon glyphicon-envelope"></span> Email: {{ company.contact_info_email|truncatechars:35 }}</p>
                     <!-- Tao: contact_info_tel here -->
-                    <p class="list-group-item"><span class="glyphicon glyphicon-phone-alt"></span> Telephone: {{ company.contact_info_tel }}</p>
+                    <p class="list-group-item"><span class="glyphicon glyphicon-phone-alt"></span> Telephone: {{ company.contact_info_tel|truncatechars:35 }}</p>
                   </div>
                 </div><!-- end panel links -->
               </aside>
