@@ -587,6 +587,6 @@ $ ->
     searchTerm = $(this).val()
     myNetwork.updateSearch(searchTerm)
 
-  json_input = $(inv_ele).val()
+  json_input = $(inv_ele_graph).val()
   root = JSON.parse json_input
   myNetwork("#vis", root)

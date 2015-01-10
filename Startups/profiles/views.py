@@ -4,8 +4,9 @@ from django.shortcuts import render
 from django.template.loader import get_template
 from django.template import Context
 from django.http import HttpResponse
-from profiles.models import company_ent, funding_ent
+from profiles.models import company_ent, funding_ent, acquisition_ent, member_ent
 from django.db.models import Sum
+from time import strptime
 import json
 
 
@@ -15,6 +16,7 @@ def profiles_view(request, cid):
      else:
           return HttpResponse("Hello, cid is missing.")
 
+     #########################
      #retrieve json for graph start here
      class node(object):
           def __init__(self, cid, name, match, description, invest_value):
@@ -113,7 +115,7 @@ def profiles_view(request, cid):
           if len(investments) > 0:
                invest_sum = investments.aggregate(Sum("amount")).values()
                #add itself as a node
-               graph.add_node(node(seed, company_ent.objects.get(pk=seed).name, 1, company_ent.objects.get(pk=seed).short_description, int(invest_sum[0].to_integral_value())))
+               graph.add_node(node(seed, company_ent.objects.get(pk=seed).name, 1, company_ent.objects.get(pk=seed).short_description, invest_sum))
           else:
                graph.add_node(node(seed, company_ent.objects.get(pk=seed).name, 1, company_ent.objects.get(pk=seed).short_description, 1000000)) # default invest_sum 1M
                
@@ -121,7 +123,105 @@ def profiles_view(request, cid):
           for investment in investments:
                graph.add_investment(seed, investment)
 
+     
      #retrieve json for graph end here
+     #########################
+
+     #########################
+     #retrieve json for timeline start here
+
+     class era(object):
+          def __init__(self, headline, text, tag, start_y, start_m, start_d, end_y, end_m, end_d):
+               self.startDate = "%d,%d,%d" % (start_y, start_m, start_d)
+               if end_y == "":
+                    self.endDate=",,,"
+               else:
+                    self.endDate = "%d,%d,%d" % (end_y, end_m, end_d)
+               self.headline = headline
+               self.text = "<p>%s</p>" % text
+               self.tag = tag
+
+     class event(era):
+          def __init__(self, headline, text, tag, start_y, start_m, start_d, end_y, end_m, end_d, classname, media, thumbnail, credit, caption):
+               super(event, self).__init__(headline, text, tag, start_y, start_m, start_d, end_y, end_m, end_d)
+               self.classname = classname
+               self.asset = {
+                              "media": media,
+                              "thumbnail": thumbnail,
+                              "credit": credit,
+                              "caption": caption,
+                            }
+
+     class timeline(object):
+          def __init__(self, timeline_headline, timeline_type="default", timeline_text="", timeline_media="", timeline_credit="", timeline_caption=""):
+               self.headline = timeline_headline
+               self.type = timeline_type
+               self.text = "<p>%s</p>" % timeline_text
+               self.asset = {
+                                        "media": timeline_media,
+                                        "credit": timeline_credit,
+                                        "caption": timeline_caption,
+                                      }
+               self.date = []
+               self.era = []
+
+          def add_date(self, headline, start_y, start_m=1, start_d=1, end_y="", end_m=1, end_d=1, text="", tag="", classname="", media="", thumbnail="", credit="", caption=""):
+               self.date.append(event(headline, text, tag, start_y, start_m, start_d, end_y, end_m, end_d, classname, media, thumbnail, credit, caption))
+               
+          def add_era(self, headline, start_y, start_m=1, start_d=1, end_y="", end_m=1, end_d=1, text="", tag=""):
+               self.era.append(era(headline, text, tag, start_y, start_m, start_d, end_y, end_m, end_d))
+               
+          def timeline2dict(self):
+               timeline_dict = object2dict(timeline)
+               return {"timeline": timeline_dict}
+
+     timeline = timeline(timeline_headline = "headline!", timeline_text="testing")
+     
+     #Date reader for acquisition
+     def read_date(string):
+          string.strip()
+          if string.startswith("Since "):
+               string = string[len("Since "):]
+          try:
+               result = strptime(string, "%b-%Y")
+          except ValueError, e:
+               result = strptime(string, "%Y")
+          return result
+
+     #Funding events
+     queryset = funding_ent.objects.filter(cid = cid)
+     
+     funding_event = {}
+     for query in queryset:
+          if query.series not in funding_event:
+               funding_event[query.series] = [query.investors,]
+          else:
+               funding_event[query.series].append(query.investors)
+               
+     for round in funding_event:
+          round_entity = queryset.filter(series=round)[0]
+          event_date = read_date(round_entity.date)
+          timeline.add_date(headline="Funding: (%s) $%s from %s" % (round,  format(round_entity.amount, ','), ",".join(funding_event[round])), start_y = event_date.tm_year, start_m = event_date.tm_mon, end_y = event_date.tm_year, end_m = event_date.tm_mon)
+
+     #Acquisitions/investments events
+     queryset = acquisition_ent.objects.filter(cid = cid)
+
+     for query in queryset:
+          event_date = read_date(query.since)
+          timeline.add_date(headline="Invested in %s" % (query.name), start_y = event_date.tm_year, start_m = event_date.tm_mon, end_y = event_date.tm_year, end_m = event_date.tm_mon)
+
+     #Member events
+     queryset = member_ent.objects.filter(cid = cid).exclude(category="").exclude(since="")
+
+     for query in queryset:
+          event_date = read_date(query.since)
+          timeline.add_date(headline="Appointed %s to %s:%s" % (query.name, query.category, query.title), start_y = event_date.tm_year, start_m = event_date.tm_mon, end_y = event_date.tm_year, end_m = event_date.tm_mon)
+
+
+     #timeline.add_era(headline="default_era", start_y = 2010, end_y = 2012)
+
+     #retrieve json for timeline end here
+     ######################### 
 
      def object2dict(obj):
           #convert object to a dict
@@ -143,10 +243,10 @@ def profiles_view(request, cid):
 ##          else:
 ##               inst = d
 ##          return inst
-     #retrieve json for graph start here
+     
      
      t = get_template('profile.html')
-     html = t.render(Context({'company':company_ent.objects.get(pk=cid), 'json': json.dumps(graph,default=object2dict)}))
+     html = t.render(Context({'company':company_ent.objects.get(pk=cid), 'json': json.dumps(graph,default=object2dict), 'timeline': json.dumps(timeline.timeline2dict(),default=object2dict)}))
      return HttpResponse(html)
 
 	 
