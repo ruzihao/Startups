@@ -175,7 +175,7 @@ def profiles_view(request, cid):
                timeline_dict = object2dict(timeline)
                return {"timeline": timeline_dict}
 
-     timeline = timeline(timeline_headline = "headline!", timeline_text="testing")
+     timeline = timeline(timeline_headline = "Milestones of %s" % company_ent.objects.get(pk=seed).name, timeline_text="with timeline display")
      
      #Date reader for acquisition
      def read_date(string):
