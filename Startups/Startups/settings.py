@@ -39,6 +39,9 @@ INSTALLED_APPS = (
 	'companies',
     'profiles',
     'lockdown',
+	
+	#backup pages
+	'profiles2',   #for spokeintel data
 )
 
 MIDDLEWARE_CLASSES = (
@@ -70,7 +73,7 @@ DATABASES = {
     'default': {
 		'ENGINE': 'django.db.backends.mysql',
 		# 'NAME': 'companies',
-        'NAME': 'spokeintel',
+        'NAME': 'vcdata',
 		'USER': 'root',
 		'PASSWORD': db_password.encode('utf-8'),
 		'HOST': '127.0.0.1',
