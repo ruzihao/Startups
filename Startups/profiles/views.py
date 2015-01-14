@@ -66,16 +66,16 @@ def profiles_view(request, cid):
                add_investment(graph, seed, investment)
 
      #delete nodes with single link(investment)
-
-     edges = graph.get_edges()
-     count_dict = {}
-     for edge in edges:
-          count_dict[edge.get_source()] = count_dict.get(edge.get_source(), 0) + 1
-          count_dict[edge.get_target()] = count_dict.get(edge.get_target(), 0) + 1
-     del_list = []
-     for node in count_dict:
-          if count_dict[node] <= 1: del_list.append(node)
-     if len(del_list) > 0: graph.del_node_by_ids(del_list)
+     if len(seed_list) > 1:
+          edges = graph.get_edges()
+          count_dict = {}
+          for edge in edges:
+               count_dict[edge.get_source()] = count_dict.get(edge.get_source(), 0) + 1
+               count_dict[edge.get_target()] = count_dict.get(edge.get_target(), 0) + 1
+          del_list = []
+          for node in count_dict:
+               if count_dict[node] <= 1: del_list.append(node)
+          if len(del_list) > 0: graph.del_node_by_ids(del_list)
           
      #retrieve json for graph end here
      #########################
