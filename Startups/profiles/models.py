@@ -58,8 +58,8 @@ class investment_ent(models.Model):
 
 class acquisition_ent(models.Model):
     acq_id = models.IntegerField(primary_key=True)
-    target_cid = models.ForeignKey(company_ent, related_name='target_cid')
-    acquirer_cid = models.ForeignKey(company_ent, related_name='acquirer_cid')
+    target_cid = models.ForeignKey(company_ent, db_column='target_cid', related_name='target_cid')
+    acquirer_cid = models.ForeignKey(company_ent, db_column='acquirer_cid', related_name='acquirer_cid')
     acquired_at = models.DateField(blank=True, null=True)
     price_amount = models.IntegerField(blank=True, null=True)
     price_currency_code = models.CharField(max_length=3, blank=True)
