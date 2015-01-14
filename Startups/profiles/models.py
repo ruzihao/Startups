@@ -12,122 +12,58 @@ from django.db import models
 
 class company_ent(models.Model):
     cid = models.IntegerField(primary_key=True)
-    name = models.TextField(blank=True)
-    website = models.TextField(blank=True)
-    founded_on = models.TextField(blank=True)
-    contact_info_email = models.TextField(blank=True)
-    contact_info_tel = models.TextField(blank=True)
-    postal_code = models.TextField(blank=True)
-    city = models.TextField(blank=True)
-    people = models.TextField(blank=True)
-    blog = models.TextField(blank=True)
-    state = models.TextField(blank=True)
-    location = models.TextField(blank=True)
-    profile_completion = models.TextField(blank=True)
-    short_description = models.TextField(blank=True)
-    status = models.TextField(blank=True)
-    branch = models.TextField(blank=True)
-    tags = models.TextField(blank=True)
-    yearly_revenue = models.TextField(blank=True)
-    country = models.TextField(blank=True)
-    industry = models.TextField(blank=True)
-    summary = models.TextField(blank=True)
-    alias = models.TextField(blank=True)
-    address_line = models.TextField(blank=True)
-
-    def __str__(self):
-        return "No. %d: %s" % (self.cid, self.name)
+    name = models.CharField(max_length=50)
+    company_category_list = models.CharField(max_length=100, blank=True)
+    market = models.CharField(max_length=30, blank=True)
+    funding_total_usd = models.IntegerField(blank=True, null=True)
+    funding_rounds = models.CharField(max_length=30, blank=True)
+    status = models.CharField(max_length=10, blank=True)
+    country_code = models.CharField(max_length=3, blank=True)
+    state_code = models.CharField(max_length=2, blank=True)
+    region = models.CharField(max_length=30, blank=True)
+    city = models.CharField(max_length=30, blank=True)
+    founded_at = models.DateField(blank=True, null=True)
+    first_funding_at = models.DateField(blank=True, null=True)
+    last_funding_at = models.DateField(blank=True, null=True)
+    homepage = models.CharField(max_length=100, blank=True)
+    company_permalink = models.CharField(max_length=100, blank=True)
 
     class Meta:
         managed = False
-        db_table = 'spokeintel_company'
-
-
-class funding_ent(models.Model):
-    fid = models.BigIntegerField(primary_key=True)
-    investors = models.TextField(blank=True)
-    cid = models.ForeignKey('company_ent', db_column='cid', blank=True, null=True)
-    series = models.TextField(blank=True)
-    date = models.TextField(blank=True)
-    amount = models.IntegerField(blank=True)
-
-    def __str__(self):
-        return "%s invested %r in series %s of %s on %s" % (self.investors, self.amount, self.series, self.cid, self.date)
+        db_table = 'cb_company'
+        
+class round_ent(models.Model):
+    cid = models.ForeignKey(company_ent, db_column='cid')
+    round_id = models.IntegerField(primary_key=True)
+    funding_round_type = models.CharField(max_length=30, blank=True)
+    funding_round_code = models.CharField(max_length=5, blank=True)
+    raised_amount_usd = models.IntegerField(blank=True, null=True)
+    funded_at = models.DateField(blank=True, null=True)
+    funding_round_permalink = models.CharField(max_length=100, blank=True)
 
     class Meta:
         managed = False
-        db_table = 'spokeintel_funding'
-		
+        db_table = 'cb_round'
+
+
+class investment_ent(models.Model):
+    round_id = models.ForeignKey(round_ent, db_column='round_id')
+    in_cid = models.IntegerField(primary_key=True)
+    investor_cid = models.ForeignKey(company_ent, db_column='investor_cid')
+
+    class Meta:
+        managed = False
+        db_table = 'cb_investment'
+
+
 class acquisition_ent(models.Model):
-    aid = models.FloatField(primary_key=True)
-    status = models.TextField(blank=True)
-    since = models.TextField(blank=True)
-    name = models.TextField(blank=True)
-    cid = models.IntegerField(blank=True, null=True)
+    acq_id = models.IntegerField(primary_key=True)
+    target_cid = models.ForeignKey(company_ent, related_name='target_cid')
+    acquirer_cid = models.ForeignKey(company_ent, related_name='acquirer_cid')
+    acquired_at = models.DateField(blank=True, null=True)
+    price_amount = models.IntegerField(blank=True, null=True)
+    price_currency_code = models.CharField(max_length=3, blank=True)
 
     class Meta:
         managed = False
-        db_table = 'spokeintel_acquisitions'
-		
-class member_ent(models.Model):
-    member_id = models.FloatField(primary_key=True)
-    category = models.TextField(blank=True)
-    since = models.TextField(blank=True)
-    cid = models.IntegerField(blank=True, null=True)
-    name = models.TextField(blank=True)
-    title = models.TextField(blank=True)
-
-    class Meta:
-        managed = False
-        db_table = 'spokeintel_member'
-		
-class people_ent(models.Model):
-    website = models.TextField(blank=True)
-    name = models.TextField(blank=True)
-    title = models.TextField(blank=True)
-    company = models.TextField(blank=True)
-    pid = models.IntegerField(primary_key=True)
-    summary = models.TextField(blank=True)
-    blog = models.TextField(blank=True)
-    location = models.TextField(blank=True)
-    profile_completion = models.TextField(blank=True)
-    industry = models.TextField(blank=True)
-
-    class Meta:
-        managed = False
-        db_table = 'spokeintel_people'
-
-class career_ent(models.Model):
-    career_id = models.FloatField(primary_key=True)
-    date = models.TextField(blank=True)
-    company = models.TextField(blank=True)
-    pid = models.ForeignKey('people_ent', db_column='pid', blank=True, null=True)
-    title = models.TextField(blank=True)
-
-    class Meta:
-        managed = False
-        db_table = 'spokeintel_career'		
-		
-class colleague_ent(models.Model):
-    colleague_id = models.FloatField(primary_key=True)
-    date = models.TextField(blank=True)
-    executive = models.TextField(blank=True)
-    pid = models.ForeignKey('people_ent', db_column='pid', blank=True, null=True)
-    name = models.TextField(blank=True)
-    title = models.TextField(blank=True)
-
-    class Meta:
-        managed = False
-        db_table = 'spokeintel_colleague'
-
-		
-class education_ent(models.Model):
-    edu_id = models.FloatField(primary_key=True)
-    school = models.TextField(blank=True)
-    pid = models.ForeignKey('people_ent', db_column='pid', blank=True, null=True)
-    major = models.TextField(blank=True)
-    year = models.TextField(blank=True)
-
-    class Meta:
-        managed = False
-        db_table = 'spokeintel_education'
+        db_table = 'cb_acquisition'

@@ -1,5 +1,6 @@
   <!DOCTYPE html>
   {% load staticfiles %}
+  {% load profile_display %}
   
   <html lang="en" xmlns:xlink="http://www.w3.org/1999/xlink">
     <head>
@@ -31,7 +32,7 @@
 
     <body>
 	  <!-- invisible element -->
-	  <input type="hidden" id="inv_ele_graph" value="{{ json }}" />
+	  <input type="hidden" id="inv_ele_graph" value="{{ graph }}" />
 	  <input type="hidden" id="inv_ele_timeline" value="{{ timeline }}" />
       <!-- NAVBAR
       ================================================== -->
@@ -70,7 +71,7 @@
             </div>
             <div class="col-md-6">
               <h1>{{ company.name }}</h1> <!-- Tao: Company name here -->
-              <p>{{ company.short_description }}</p> <!-- Tao: Short_description here -->
+              <p>{{ company.market }}</p> <!-- Tao: Short_description here -->
             </div>
             <div class="col-md-4">
               <div class="row">
@@ -80,7 +81,7 @@
                 <a href="#" class="btn btn-default"> &lt; / &gt;</a>            
               </div>
               <div class="row" id="completion">              
-                <div class="col-md-3 col-md-push-4"><a href="#">{{ company.profile_completion }}</a></div> <!-- Completion here -->              
+                <div class="col-md-3 col-md-push-4"><a href="#">{{ "0%" }}</a></div> <!-- Completion here -->              
               </div>
               <div class="row">
                 <div class="col-md-7 col-md-push-5"><p id="completionLabel">Profile completion</p></div> <!-- Completion here -->
@@ -94,9 +95,9 @@
       ================================================== -->
        <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" class="active"><a href="#basicInfor_nav" role="tab" data-toggle="tab">Basic Infor</a></li>
-          <li role="presentation"><a href="#graph_nav" role="tab" data-toggle="tab">Graph</a></li>
-          <li role="presentation"><a id="timeline_a"href="#timeline_nav" role="tab" data-toggle="tab">Timeline</a></li>
+          <li role="presentation" class="active"><a href="#basicInfor_nav" role="tab" data-toggle="tab">Basic Info</a></li>
+          <li role="presentation"><a href="#graph_nav" role="tab" data-toggle="tab">Investor Graph</a></li>
+          <li role="presentation"><a id="timeline_a"href="#timeline_nav" role="tab" data-toggle="tab">Time-line Events</a></li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
@@ -105,69 +106,53 @@
           <div role="tabpanel" class="tab-pane fade in active" id="basicInfor_nav">            
             <div id="main_content" class="row">
               <article class="col-md-8">
-                <h2>{{ company.name }} information</h2>
-                <h3>Summary</h3>
-                <!-- Tao: Summary here -->   
-                <p>{{ company.summary }}</p>
+                <h3>Categories</h3>
+                <!-- Tao: Summary here -->  
+                <p>{{ company.company_category_list|cut_category }}</p>
                 <h3>Others</h3>
                 <p>You can find other useful information in the following table</p>
                 <div class="table-responsive">
                   <table class="table table-condensed table-striped table-hover">
                     <thead>
                       <tr>
-                        <th colspan="2">Industry Information</th>          
-                        <th colspan="2">Geography Information</th>   
-                      </tr>
-                      <tr>
-                        <th>Name</th>          
+                        <th>Key</th>          
                         <th>Value</th>
-                        <th>Name</th>          
+                        <th>Key</th>          
                         <th>Value</th>                      
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td>CID</td> <!-- Tao: cid here -->  
-                        <td>{{ company.cid }}</td>
-                        <td>Alias</td> <!-- Tao: Alias here -->  
-                        <td>{{ company.alias }}</td>
-                      </tr>
-                      <tr>
-                        <td>Status</td> <!-- Tao: Status here -->  
+                        <td>Status</td>  
                         <td>{{ company.status }}</td>
-                        <td>Branch</td> <!-- Tao: Branch here -->  
-                        <td>{{ company.branch }}</td>
+                        <td>Founded at</td> 
+                        <td>{{ company.founded_at }}</td>
                       </tr>
                       <tr>
-                        <td>Industry</td> <!-- Tao: Industry here -->  
-                        <td>{{ company.industry }}</td>
-                        <td>Country</td> <!-- Tao: Country here -->
-                        <td>{{ company.country }}</td>
+                        <td>Current Round</td>  
+                        <td>{{ company.funding_rounds }}</td>
+                        <td>Country</td> 
+                        <td>{{ company.country_code }}</td>
                       </tr>
                       <tr>
-                        <td>Founded On</td> <!-- Tao: Founded_on here -->
-                        <td>{{ company.founded_on }}</td>
-                        <td>State</td> <!-- Tao: State here -->
-                        <td>{{ company.state }}</td>
+                        <td>Total Funding in USD</td>   
+                        <td>{{ company.funding_total_usd }}</td>
+                        <td>State</td> 
+                        <td>{{ company.state_code }}</td>
                       </tr>
                       <tr>
-                        <td>People</td> <!-- Tao: People here -->
-                        <td>{{ company.people }}</td>
-                        <td>City</td> <!-- Tao: City here -->
+                        <td>First Funding at</td> 
+                        <td>{{ company.first_funding_at }}</td>
+                        <td>Region</td> 
+                        <td>{{ company.region }}</td>
+                      </tr>
+                      <tr>
+                        <td>Last Funding at</td> 
+                        <td>{{ company.last_funding_at }}</td>
+                        <td>City</td> 
                         <td>{{ company.city }}</td>
                       </tr>
-                      <tr>
-                        <td>Yearly Revenue</td> <!-- Tao: Yearly Revenue here -->
-                        <td>{{ company.yearly_revenue }}</td>
-                        <td>Postal Code</td> <!-- Tao: Postal Code here -->
-                        <td>{{ company.postal_code }}</td>
-                      </tr>
-                      <tr>
-                        <td>Location</td>  <!-- Tao: Location here -->
-                        <td>{{ company.location }}</td>
-                        <td>Address Line</td>  <!-- Tao: Address Line -->
-                        <td>{{ company.address_line }}</td>
-                      </tr>
+
                     </tbody>
                   </table>
                 </div>          
@@ -180,23 +165,21 @@
                   </div>
                   <div class="list-group">
                     <!-- Tao: Company Website here -->
-                    <a href="{{ company.website }}" class="list-group-item">Company Website: <br>{{ company.website|truncatechars:35 }}</a>
-                    <!-- Tao: Company Blog here -->
-                    <a href="{{ company.blog }}" class="list-group-item">Company Blog: <br>{{ company.blog|truncatechars:35 }}</a>
+                    <a href="{{ company.homepage }}" class="list-group-item"  target="_blank">Company Website: <br>{{ company.homepage|truncatechars:35 }}</a>
                   </div>
                 </div><!-- end panel links -->
 
-                <div class="panel panel-info"><!-- Panel Contact Infor -->
+				<!--
+                <div class="panel panel-info">
                   <div class="panel-heading">
                     <h3 class="panel-title">Contact Information</h3>
                   </div>
                   <div class="list-group">
-                    <!-- Tao: contact_info_email here -->
                     <p class="list-group-item"><span class="glyphicon glyphicon-envelope"></span> Email: {{ company.contact_info_email|truncatechars:35 }}</p>
-                    <!-- Tao: contact_info_tel here -->
                     <p class="list-group-item"><span class="glyphicon glyphicon-phone-alt"></span> Telephone: {{ company.contact_info_tel|truncatechars:35 }}</p>
                   </div>
-                </div><!-- end panel links -->
+                </div>
+				-->
               </aside>
             </div>
           </div><!-- End Pane_1 main content -->

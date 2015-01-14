@@ -67,7 +67,7 @@ class acquisition_ent(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'spokeintel_acquisitions'
+        db_table = 'spokeintel_acquisition'
 		
 class member_ent(models.Model):
     member_id = models.FloatField(primary_key=True)
