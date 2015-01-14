@@ -6,7 +6,7 @@ from django.template import Context
 from django.http import HttpResponse
 from profiles.models import company_ent, round_ent, investment_ent, acquisition_ent
 from profiles import classes
-from django.db.models import Sum
+from django.db.models import Sum, Count
 from time import strptime, localtime
 import json
 
@@ -27,10 +27,12 @@ def profiles_view(request, cid):
 		  return investment_ent.objects.filter(round_id__in =round_id_list).values_list("investor_cid")
 		  
      def add_investment(graph, investor_cid, investment):
-          invest_traget = investment.round_id.cid
+          invest_target = investment.round_id.cid
           #amount should be fixed by partners_count, match haven't been defined yet
-          graph.add_node(invest_traget.cid, invest_traget.name, 1, invest_traget.company_category_list, 1000000) #decimal to float; amount is not accurate
-          graph.add_edge(investor_cid, invest_traget.cid)
+          query = round_ent.objects.filter(round_id = investment.round_id.round_id).annotate(Count("investment_ent"))
+          invest_amount = investment.round_id.raised_amount_usd/(query[0].investment_ent__count)
+          graph.add_node(invest_target.cid, invest_target.name, 1, invest_target.company_category_list, invest_amount) #decimal to float; amount is not accurate
+          graph.add_edge(investor_cid, invest_target.cid)
 
      graph = classes.graph()
      
@@ -48,17 +50,33 @@ def profiles_view(request, cid):
           if len(investments) > 0:
 			   #compute the sum of money invested by certain company
 			   round_list = round_ent.objects.filter(round_id__in = investments.values_list("round_id"))
-			   invest_sum = round_list.aggregate(Sum("raised_amount_usd")).values()[0]           #amount is not accurate
+			   round_list = round_list.values("round_id", "raised_amount_usd")
+			   invest_sum = 0
+			   for round in round_list:
+                                #query = round_ent.objects.filter(round_id = round["round_id"]).annotate(Count("investment_ent"))
+                                #invest_sum += round["raised_amount_usd"] / query[0].investment_ent__count
+                                invest_sum += round["raised_amount_usd"]
 			   #add itself as a node
 			   graph.add_node(seed,seed_company_ent.name, 1, seed_company_ent.company_category_list, invest_sum)
           else:
-			   graph.add_node(seed, seed_company_ent.name, 1, seed_company_ent.company_category_list, 1000000) # default invest_sum 1M
+			   graph.add_node(seed, seed_company_ent.name, 1, seed_company_ent.company_category_list, 10000000) # default invest_sum 1M
                
           #add other nodes
           for investment in investments:
                add_investment(graph, seed, investment)
 
-     
+     #delete nodes with single link(investment)
+
+     edges = graph.get_edges()
+     count_dict = {}
+     for edge in edges:
+          count_dict[edge.get_source()] = count_dict.get(edge.get_source(), 0) + 1
+          count_dict[edge.get_target()] = count_dict.get(edge.get_target(), 0) + 1
+     del_list = []
+     for node in count_dict:
+          if count_dict[node] <= 1: del_list.append(node)
+     if len(del_list) > 0: graph.del_node_by_ids(del_list)
+          
      #retrieve json for graph end here
      #########################
 

@@ -9,6 +9,8 @@ class graph(object):
 		   self.description = description
 		   self.invest_value = invest_value
 		   self.url = "/profiles/%d" % cid
+	  def update_invest_value(self, increment):
+		   self.invest_value += increment
 	  def __repr__(self):
 		   return "Node %s with id %d<br>" % (self.name, self.id)
 
@@ -16,16 +18,20 @@ class graph(object):
 	  def __init__(self, source_cid, target_cid):
 		   self.source = source_cid   #indentified by cid
 		   self.target = target_cid   #indentified by cid
+	  def get_source(self):
+		   return self.source
+	  def get_target(self):
+		   return self.target
 	  def __repr__(self):
 		   return "Link from %d to %d<br>" % (self.source, self.target)
 
 	def __init__(self):
 	   self.nodes = []
-	   self.nodes_id = []
+	   self.node_id_list = []
 	   self.links = []
 
 	def is_node_exist(self, new_node):
-	   return new_node.id in self.nodes_id
+	   return new_node.id in self.node_id_list
 
 	def is_edge_exist(self, new_edge):
 	   for link in self.links:
@@ -38,7 +44,10 @@ class graph(object):
 	   new_node = graph.node(cid, name, match, description, invest_value)
 	   if not self.is_node_exist(new_node):
 			self.nodes.append(new_node)
-			self.nodes_id.append(new_node.id)
+			self.node_id_list.append(new_node.id)
+	   else:
+			index = self.node_id_list.index(cid)
+			self.nodes[index].update_invest_value(invest_value)
 
 	def add_edge(self, source_cid, target_cid):
 	   new_edge = graph.edge(source_cid, target_cid)
@@ -51,6 +60,30 @@ class graph(object):
 	def get_edges(self):
 	   return self.links
 
+	def get_node_id_list(self):
+	   return self.node_id_list
+
+	def del_node_by_ids(self, nodes):
+	   if type(nodes) is not list: nodes = [ nodes ]
+	
+	   for node_id in nodes:
+			index = self.node_id_list.index(node_id)
+			#delete the node
+			self.node_id_list.pop(index)
+			self.nodes.pop(index)
+	   
+	   #delete related links
+	   count = 0
+	   indexes = []
+	   for link in self.links:
+			if link.get_source() in nodes or link.get_target() in nodes:
+				indexes.append(count)
+			count += 1
+	   count = 0
+	   for index in indexes:
+			self.links.pop(index-count)    # offset
+			count += 1
+				   
 	def __repr__(self):
 	   message = []
 	   message.append("Nodes<br>")
