@@ -121,7 +121,7 @@ def profiles_view(request, cid):
 
      for query in queryset:
           event_date = query.acquired_at
-          timeline.add_date(headline="Acquided %s" % (query.target_cid.name), start_y = event_date.year, start_m = event_date.month, end_y = event_date.year, end_m = event_date.month)
+          timeline.add_date(headline="Acquired %s" % (query.target_cid.name), start_y = event_date.year, start_m = event_date.month, end_y = event_date.year, end_m = event_date.month)
 
      #Check whether date_list is empty
      if len(timeline.get_date_list()) == 0:
