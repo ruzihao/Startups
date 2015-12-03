@@ -36,9 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	'companies',
     'profiles',
-    'lockdown',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -48,10 +46,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'lockdown.middleware.LockdownMiddleware',
 )
-
-LOCKDOWN_PASSWORDS = ('huixiong',)
 
 ROOT_URLCONF = 'Startups.urls'
 
@@ -61,10 +56,6 @@ WSGI_APPLICATION = 'Startups.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
-if 'Windows-7-6.1.7601-SP1' not in platform.platform():
-	db_password = 'huixiong'
-else:
-	db_password = ''
 		
 DATABASES = {
     'default': {
@@ -72,7 +63,7 @@ DATABASES = {
 		# 'NAME': 'companies',
         'NAME': 'spokeintel',
 		'USER': 'root',
-		'PASSWORD': db_password.encode('utf-8'),
+		'PASSWORD': 'nie4t65',
 		'HOST': '127.0.0.1',
 		'PORT': '3306',
 #        'ENGINE': 'django.db.backends.sqlite3',

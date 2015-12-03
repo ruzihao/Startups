@@ -5,9 +5,9 @@ RadialPlacement = () ->
   # stores the key -> location values
   values = d3.map()
   # how much to separate each location by
-  increment = 20
+  increment = 5
   # how large to make the layout
-  radius = 200
+  radius = 10
   # where the center of the layout should be
   center = {"x":0, "y":0}
   # what angle to start at
@@ -62,7 +62,7 @@ RadialPlacement = () ->
     secondCircleKeys = keys.slice(firstCircleCount)
 
     # setup outer circle
-    radius = radius + radius / 1.8
+    radius = radius + radius / 10
     increment = 360 / secondCircleKeys.length
 
     secondCircleKeys.forEach (k) -> place(k)
@@ -104,7 +104,7 @@ Network = () ->
   # variables we want to access
   # in multiple places of Network
   width = 1160
-  height = 800
+  height = 1000
   # allData will store the unfiltered data
   allData = []
   curLinksData = []
@@ -119,10 +119,10 @@ Network = () ->
   node = null
   link = null
   # Tao
-  legend_nodesG = null
-  legend_node = null
-  legend_textsG = null
-  legend_text = null
+  #legend_nodesG = null
+  #legend_node = null
+  #legend_textsG = null
+  #legend_text = null
 
   # variables to refect the current settings
   # of the visualization
@@ -136,7 +136,14 @@ Network = () ->
   # our force directed layout
   force = d3.layout.force()
   # color function used to color nodes
-  nodeColors = d3.scale.category20()
+  _nodeColors = d3.scale.category20()
+  nodeColors = (d) -> 
+    if d.id == root.root_id
+      col = "red"
+    else
+      col = _nodeColors(d.description)
+    col
+
   # tooltip used to display details
   tooltip = Tooltip("vis-tooltip", 230)
 
@@ -157,8 +164,8 @@ Network = () ->
     nodesG = vis.append("g").attr("id", "nodes")
 
     # Tao
-    legend_nodesG = vis.append("g").attr("id", "legend_nodes")
-    legend_textsG = vis.append("g").attr("id", "legend_texts")
+    #legend_nodesG = vis.append("g").attr("id", "legend_nodes")
+    #legend_textsG = vis.append("g").attr("id", "legend_texts")
 
     # setup the size of the force environment
     force.size([width-300, height])
@@ -234,15 +241,20 @@ Network = () ->
     node.each (d) ->
       element = d3.select(this)
       match = d.name.toLowerCase().search(searchRegEx)
-      if searchTerm.length > 0 and match >= 0
-        element.style("fill", "#F38630")
-          .style("stroke-width", 2.0)
-          .style("stroke", "#555")
-        d.searched = true
+      if searchTerm.length > 0
+        if match >= 0
+          element.style("fill", "green")
+            .style("stroke-width", 5.0)
+            .style("stroke", "green")
+          d.searched = true
+        else
+          element.style("fill", "grey")
+            .style("stroke-width", 1.0)
+            .style("stroke", "grey")
       else
         d.searched = false
-        element.style("fill", (d) -> nodeColors(d.description))
-          .style("stroke-width", 1.0)
+        element.style("fill", (d) -> nodeColors(d))
+        .style("stroke-width", 1.0)
 
   network.updateData = (newData) ->
     allData = setupData(newData)
@@ -256,7 +268,7 @@ Network = () ->
   setupData = (data) ->
     # initialize circle radius scale
     countExtent = d3.extent(data.nodes, (d) -> d.invest_value)
-    circleRadius = d3.scale.sqrt().range([3, 12]).domain(countExtent)
+    circleRadius = d3.scale.sqrt().range([2, 13]).domain(countExtent)
 
     data.nodes.forEach (n) ->
       # set initial x/y to values within the width/height
@@ -265,6 +277,9 @@ Network = () ->
       n.y = randomnumber=Math.floor(Math.random()*height)
       # add radius to the node so we can use it later
       n.radius = circleRadius(n.invest_value)
+      if n.id == data.root_id
+        n.radius = 15
+
 
     # id's -> node objects
     nodesMap  = mapNodes(data.nodes)
@@ -372,7 +387,7 @@ Network = () ->
       .attr("cx", (d) -> d.x)
       .attr("cy", (d) -> d.y)
       .attr("r", (d) -> d.radius)
-      .style("fill", (d) -> nodeColors(d.description))
+      .style("fill", (d) -> nodeColors(d))
       .style("stroke", (d) -> strokeFor(d))
       .style("stroke-width", 1.0)
 
@@ -383,34 +398,10 @@ Network = () ->
     node.exit().remove()
 
     # Tao display for legend
-    legend_node = legend_nodesG.selectAll("circle.legend_nodes")
-      .data(curNodesData, (d) -> d.id)
-
-    legend_node.enter().append("circle")
-      .attr("class", "legend_nodes")
-      .attr("cx", (d,i) -> d.x)
-      .attr("cy", (d,i) -> d.y)
-      .attr("r", (d) -> d.radius)
-      .style("fill", (d) -> nodeColors(d.description))
-      .style("stroke", (d) -> strokeFor(d))
-      .style("stroke-width", 1.0)
-
-    legend_node.exit().remove()
+    # removed
 
     # Tao display for legend text
-    legend_text = legend_textsG.selectAll("text.legend_texts")
-      .data(curNodesData, (d) -> d.id)
-
-    legend_text.enter().append("text")
-      .text((d) -> d.name)
-      .attr("class", "legend_texts")
-      .attr("x", (d,i) -> d.x)
-      .attr("y", (d,i) -> d.y)
-      .attr("font-family", "sans-serif")
-      .attr("font-size", "11px")
-      .attr("fill", "black")
-
-    legend_text.exit().remove()
+    # removed
 
   # enter/exit display for links
   updateLinks = () ->
@@ -432,8 +423,8 @@ Network = () ->
     layout = newLayout
     if layout == "force"
       force.on("tick", forceTick)
-        .charge(-200)
-        .linkDistance(50)
+        .charge(-800 / Math.sqrt(allData.nodes.length))
+        .linkDistance(10)
     else if layout == "radial"
       force.on("tick", radialTick)
         .charge(charge)
@@ -459,13 +450,13 @@ Network = () ->
       .attr("y2", (d) -> d.target.y)
 
     # Tao for present, just draw 50 nodes in legend, and remove the rest out of svg
-    legend_node
-      .attr("cx", (d,i) -> if i > 50 then -100 else width - (i%2)*250 - 150)
-      .attr("cy", (d,i) -> if i > 50 then -100 else Math.floor((i/2))*30 + 20)
+    #legend_node
+    #  .attr("cx", (d,i) -> if i > 50 then -100 else width - (i%2)*250 - 150)
+    #  .attr("cy", (d,i) -> if i > 50 then -100 else Math.floor((i/2))*30 + 20)
 
-    legend_text
-      .attr("x", (d,i) -> if i > 50 then -100 else width - (i%2)*250 - 130)
-      .attr("y", (d,i) -> if i > 50 then -100 else Math.floor((i/2))*30 + 25)
+    #legend_text
+    #  .attr("x", (d,i) -> if i > 50 then -100 else width - (i%2)*250 - 130)
+    #  .attr("y", (d,i) -> if i > 50 then -100 else Math.floor((i/2))*30 + 25)
 
   # tick function for radial layout
   radialTick = (e) ->
@@ -480,13 +471,13 @@ Network = () ->
       updateLinks()
 
     # Tao for present, just draw 50 nodes in legend, and remove the rest out of svg
-    legend_node
-      .attr("cx", (d,i) -> if i > 50 then -100 else width - (i%2)*250 - 150)
-      .attr("cy", (d,i) -> if i > 50 then -100 else Math.floor((i/2))*30 + 20)
+    #legend_node
+    #  .attr("cx", (d,i) -> if i > 50 then -100 else width - (i%2)*250 - 150)
+    #  .attr("cy", (d,i) -> if i > 50 then -100 else Math.floor((i/2))*30 + 20)
 
-    legend_text
-      .attr("x", (d,i) -> if i > 50 then -100 else width - (i%2)*250 - 130)
-      .attr("y", (d,i) -> if i > 50 then -100 else Math.floor((i/2))*30 + 25)
+    #legend_text
+    #  .attr("x", (d,i) -> if i > 50 then -100 else width - (i%2)*250 - 130)
+    #  .attr("y", (d,i) -> if i > 50 then -100 else Math.floor((i/2))*30 + 25)
 
   # Adjusts x/y for each node to
   # push them towards appropriate location.
@@ -502,7 +493,7 @@ Network = () ->
   # Helper function that returns stroke color for
   # particular node.
   strokeFor = (d) ->
-    d3.rgb(nodeColors(d.description)).darker().toString()
+    d3.rgb(nodeColors(d)).darker().toString()
 
   # Mouseover tooltip function
   showDetails = (d,i) ->
@@ -583,7 +574,7 @@ $ ->
    root = JSON.parse json_new
    myNetwork.updateData(root)
 	  
-  $("#search").keyup () ->
+  $("#graphSearch").keyup () ->
     searchTerm = $(this).val()
     myNetwork.updateSearch(searchTerm)
 

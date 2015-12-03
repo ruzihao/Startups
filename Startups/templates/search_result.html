@@ -1,50 +1,28 @@
 {% extends "header.html" %}
 {% load staticfiles %}
-  
+	
 {% block title %}
-  Company Lists
+  Search Results
 {% endblock %}
  
- {% block container %}  
-     
-
+ {% block container %}
       <div class="container"> 
         <!-- JUMBOTRON
         ================================================== -->    
         <div class="jumbotron" style="margin-top:6em">
-          <h1>Start-ups</h1>
-          <p>This is a navigation page to help you find information you need.</p>
+          <h1>Search Result of {{search_string}} </h1>
         </div>      
 
           <!-- Example row of columns -->
           <div class="row">
             <div class="col-md-4">
-              <h2>Venture Capital</h2>
-              <p>Venture capital (VC) is financial capital provided to early-stage, high-potential, growth startup companies.</p>
+              <h2>{{result_length}} results returned:</h2>
               <ul>
 
-				{% for cp in company_list1 %}
+				{% for cp in search_result %}
 					<li><a href="/profiles/{{ cp.cid }}/">{{ cp.name }}</a></li>
 				{% endfor %}
                 
-              </ul>
-            </div>
-            <div class="col-md-4">
-              <h2>Technology</h2>
-              <p>Technology is any set of machine-readable instructions that directs a computer's processor to perform specific operations.</p>
-              <ul>
-				{% for cp in company_list2 %}
-					<li><a href="/profiles/{{ cp.cid }}/">{{ cp.name }}</a></li>
-				{% endfor %}           
-              </ul>
-           </div>
-            <div class="col-md-4">
-              <h2>Health and Wellness</h2>
-              <p>An aggregation of sectors within the economic system that provides goods and services to treat patients with curative, preventive, rehabilitative, and palliative care.</p>
-              <ul>
-				{% for cp in company_list3 %}
-					<li><a href="/profiles/{{ cp.cid }}/">{{ cp.name }}</a></li>
-				{% endfor %}
               </ul>
             </div>
           </div>
@@ -66,6 +44,5 @@
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="{% static 'js/libs/bootstrap.min.js' %}"></script>
-
 
 {% endblock %}

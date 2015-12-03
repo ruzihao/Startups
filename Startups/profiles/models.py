@@ -10,124 +10,70 @@
 
 from django.db import models
 
-class company_ent(models.Model):
-    cid = models.IntegerField(primary_key=True)
-    name = models.TextField(blank=True)
-    website = models.TextField(blank=True)
-    founded_on = models.TextField(blank=True)
-    contact_info_email = models.TextField(blank=True)
-    contact_info_tel = models.TextField(blank=True)
-    postal_code = models.TextField(blank=True)
-    city = models.TextField(blank=True)
-    people = models.TextField(blank=True)
-    blog = models.TextField(blank=True)
-    state = models.TextField(blank=True)
-    location = models.TextField(blank=True)
-    profile_completion = models.TextField(blank=True)
-    short_description = models.TextField(blank=True)
-    status = models.TextField(blank=True)
-    branch = models.TextField(blank=True)
-    tags = models.TextField(blank=True)
-    yearly_revenue = models.TextField(blank=True)
-    country = models.TextField(blank=True)
-    industry = models.TextField(blank=True)
-    summary = models.TextField(blank=True)
-    alias = models.TextField(blank=True)
-    address_line = models.TextField(blank=True)
 
-    def __str__(self):
-        return "No. %d: %s" % (self.cid, self.name)
+class Company_ent(models.Model):
+    cid = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+    company_category_list = models.CharField(max_length=300, blank=True, null=True)
+    market = models.CharField(max_length=100, blank=True, null=True)
+    funding_total_usd = models.IntegerField(blank=True, null=True)
+    funding_rounds = models.CharField(max_length=30, blank=True, null=True)
+    status = models.CharField(max_length=10, blank=True, null=True)
+    country_code = models.CharField(max_length=3, blank=True, null=True)
+    state_code = models.CharField(max_length=2, blank=True, null=True)
+    region = models.CharField(max_length=80, blank=True, null=True)
+    city = models.CharField(max_length=80, blank=True, null=True)
+    founded_at = models.DateField(blank=True, null=True)
+    first_funding_at = models.DateField(blank=True, null=True)
+    last_funding_at = models.DateField(blank=True, null=True)
+    homepage = models.CharField(max_length=300, blank=True, null=True)
+    company_permalink = models.CharField(max_length=100, blank=True, null=True)
+    stock_market = models.CharField(max_length=25, blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'company'
+        db_table = 'cb_company'
 
-
-class funding_ent(models.Model):
-    fid = models.BigIntegerField(primary_key=True)
-    investors = models.TextField(blank=True)
-    cid = models.ForeignKey('company_ent', db_column='cid', blank=True, null=True)
-    series = models.TextField(blank=True)
-    date = models.TextField(blank=True)
-    amount = models.IntegerField(blank=True)
-
-    def __str__(self):
-        return "%s invested %r in series %s of %s on %s" % (self.investors, self.amount, self.series, self.cid, self.date)
+class Funding_round_ent(models.Model):
+    cid = models.ForeignKey('company_ent', related_name='round_company', db_column='cid')
+    round_id = models.AutoField(primary_key=True)
+    funding_round_type = models.CharField(max_length=30, blank=True, null=True)
+    funding_round_code = models.CharField(max_length=5, blank=True, null=True)
+    raised_amount_usd = models.IntegerField(blank=True, null=True)
+    funded_at = models.DateField(blank=True, null=True)
+    funding_round_permalink = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'funding'
+        db_table = 'cb_round'
+
+class Funding_ent(models.Model):
+    round_id = models.ForeignKey('funding_round_ent', related_name='funding_round', db_column='round_id')
+    in_cid = models.AutoField(primary_key=True)
+    investor_cid = models.ForeignKey('company_ent', related_name='investor_company', db_column='investor_cid')
+
+    class Meta:
+        managed = False
+        db_table = 'cb_investment'
 		
-class acquisition_ent(models.Model):
-    aid = models.FloatField(primary_key=True)
-    status = models.TextField(blank=True)
-    since = models.TextField(blank=True)
-    name = models.TextField(blank=True)
-    cid = models.IntegerField(blank=True, null=True)
+class Acquisition_ent(models.Model):
+    acq_id = models.AutoField(primary_key=True)
+    target_cid = models.ForeignKey('company_ent', related_name='target_company', db_column='target_cid')
+    acquirer_cid = models.ForeignKey('company_ent', related_name='acquirer_company', db_column='acquirer_cid')
+    acquired_at = models.DateField(blank=True, null=True)
+    price_amount = models.IntegerField(blank=True, null=True)
+    price_currency_code = models.CharField(max_length=3, blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'acquisitions'
+        db_table = 'cb_acquisition'
 		
-class member_ent(models.Model):
-    member_id = models.FloatField(primary_key=True)
-    category = models.TextField(blank=True)
-    since = models.TextField(blank=True)
-    cid = models.IntegerField(blank=True, null=True)
-    name = models.TextField(blank=True)
-    title = models.TextField(blank=True)
+class Similar_objects_ent(models.Model):
+	cid = models.ForeignKey('company_ent', related_name='similarSeed_company')
+	score = models.FloatField(blank=True, null=True)
+	counterpart = models.ForeignKey('company_ent', related_name='similarObj_company')
 
-    class Meta:
-        managed = False
-        db_table = 'member'
-		
-class people_ent(models.Model):
-    website = models.TextField(blank=True)
-    name = models.TextField(blank=True)
-    title = models.TextField(blank=True)
-    company = models.TextField(blank=True)
-    pid = models.IntegerField(primary_key=True)
-    summary = models.TextField(blank=True)
-    blog = models.TextField(blank=True)
-    location = models.TextField(blank=True)
-    profile_completion = models.TextField(blank=True)
-    industry = models.TextField(blank=True)
-
-    class Meta:
-        managed = False
-        db_table = 'people'
-
-class career_ent(models.Model):
-    career_id = models.FloatField(primary_key=True)
-    date = models.TextField(blank=True)
-    company = models.TextField(blank=True)
-    pid = models.ForeignKey('people_ent', db_column='pid', blank=True, null=True)
-    title = models.TextField(blank=True)
-
-    class Meta:
-        managed = False
-        db_table = 'career'		
-		
-class colleague_ent(models.Model):
-    colleague_id = models.FloatField(primary_key=True)
-    date = models.TextField(blank=True)
-    executive = models.TextField(blank=True)
-    pid = models.ForeignKey('people_ent', db_column='pid', blank=True, null=True)
-    name = models.TextField(blank=True)
-    title = models.TextField(blank=True)
-
-    class Meta:
-        managed = False
-        db_table = 'colleague'
-
-		
-class education_ent(models.Model):
-    edu_id = models.FloatField(primary_key=True)
-    school = models.TextField(blank=True)
-    pid = models.ForeignKey('people_ent', db_column='pid', blank=True, null=True)
-    major = models.TextField(blank=True)
-    year = models.TextField(blank=True)
-
-    class Meta:
-        managed = False
-        db_table = 'education'
+class Recommended_objects_ent(models.Model):
+	cid = models.ForeignKey('company_ent', related_name='recSeed_company')
+	score = models.FloatField(blank=True, null=True)
+	counterpart = models.ForeignKey('company_ent', related_name='recObj_company')
