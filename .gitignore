@@ -1,2 +1,8 @@
 *.swp
 *.pyc
+
+*.json
+
+*.np
+
+*.model
