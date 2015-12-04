@@ -24,7 +24,7 @@ def load_model():
 pmf = load_model()
 
 ## read dict
-dataPath = '/home/adamzjw/Desktop/Startups/profiles/pmf/'
+dataPath = './profiles/pmf/'
 with open(dataPath + "invID.json") as f:
 	prem2invID = json.loads(f.read(), encoding="latin-1")
 
